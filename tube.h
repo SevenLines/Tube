@@ -63,6 +63,8 @@ public:
     /// порядковый номер трубы
     int number;
     
+    int position;
+    
     QString obstacle; // препятствие
     QString waterCourse; // тип водотока
     QString schedule; // режим водотока

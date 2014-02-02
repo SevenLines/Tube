@@ -87,6 +87,7 @@ Tube::Tube()
     condition = "";
     fullLength = 0;
     moundHeight = 0;
+    position = 0;
     
     condition = "удовлетворительное";
     obstacle = "периодический водоток";
@@ -101,6 +102,7 @@ void Tube::writeToXml(QXmlStreamWriter *xml)
     xml->writeAttribute("number", QString::number(number));
     
     XmlUtils::writeBool(xml, "ready", ready);
+    XmlUtils::writeInt(xml, "position", position);
     xml->writeTextElement("condition", condition);
     xml->writeTextElement("obstacle", obstacle);
     xml->writeTextElement("waterCourse", waterCourse);
@@ -155,6 +157,8 @@ Tube Tube::readFromXml(QDomNode tubeNode)
     tube.fullLength = XmlUtils::readFirstReal(&tubeNode, "fullLength");
     tube.moundHeight = XmlUtils::readFirstReal(&tubeNode, "moundHeight");
     tube.skew = XmlUtils::readFirstReal(&tubeNode, "skew");
+    
+    tube.position = XmlUtils::readFirstInt(&tubeNode, "position");
     
     tube.in = Portal::readFromXml(tubeNode.firstChildElement("in"));
     tube.out = Portal::readFromXml(tubeNode.firstChildElement("out"));

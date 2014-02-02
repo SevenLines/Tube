@@ -51,6 +51,18 @@
        <string>Анкета</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item row="0" column="1">
         <widget class="QWidget" name="widget_2" native="true">
          <property name="sizePolicy">
@@ -89,6 +101,18 @@
              <string>Вход</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_3">
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
              <item row="0" column="1">
               <widget class="PortalForm" name="wdgPortalIn" native="true">
                <property name="sizePolicy">
@@ -112,6 +136,9 @@
                </property>
                <property name="mouseTracking">
                 <bool>true</bool>
+               </property>
+               <property name="contextMenuPolicy">
+                <enum>Qt::ActionsContextMenu</enum>
                </property>
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
@@ -151,6 +178,18 @@
              <bool>false</bool>
             </property>
             <layout class="QGridLayout" name="gridLayout_5">
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
              <property name="horizontalSpacing">
               <number>6</number>
              </property>
@@ -210,6 +249,9 @@
                </property>
                <property name="mouseTracking">
                 <bool>true</bool>
+               </property>
+               <property name="contextMenuPolicy">
+                <enum>Qt::ActionsContextMenu</enum>
                </property>
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
@@ -430,6 +472,11 @@
                   <string>безнапорный</string>
                  </property>
                 </item>
+                <item>
+                 <property name="text">
+                  <string>напорный</string>
+                 </property>
+                </item>
                </widget>
               </item>
               <item>
@@ -554,10 +601,29 @@ background:rgb(38, 106, 208);</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="1">
-              <widget class="QSpinBox" name="spnPosition">
+             <item row="0" column="3">
+              <widget class="QSpinBox" name="spnPositionM">
                <property name="suffix">
-                <string> m</string>
+                <string/>
+               </property>
+               <property name="prefix">
+                <string/>
+               </property>
+               <property name="maximum">
+                <number>999</number>
+               </property>
+               <property name="singleStep">
+                <number>10</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="spnPositionKm">
+               <property name="suffix">
+                <string/>
                </property>
                <property name="prefix">
                 <string/>
@@ -566,10 +632,36 @@ background:rgb(38, 106, 208);</string>
                 <number>9999999</number>
                </property>
                <property name="singleStep">
-                <number>100</number>
+                <number>1</number>
                </property>
                <property name="value">
                 <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QLabel" name="label">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>км</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="4">
+              <widget class="QLabel" name="label_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>м</string>
                </property>
               </widget>
              </item>

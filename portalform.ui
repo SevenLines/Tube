@@ -6,14 +6,33 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>385</width>
-    <height>307</height>
+    <width>296</width>
+    <height>292</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">font-size:12px;
+</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>2</number>
+   </property>
+   <property name="topMargin">
+    <number>2</number>
+   </property>
+   <property name="rightMargin">
+    <number>2</number>
+   </property>
+   <property name="bottomMargin">
+    <number>2</number>
+   </property>
+   <property name="spacing">
+    <number>2</number>
+   </property>
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="spacing">
@@ -22,7 +41,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <property name="spacing">
-        <number>4</number>
+        <number>2</number>
        </property>
        <item>
         <widget class="QLabel" name="label_6">
@@ -46,7 +65,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>тип разрез</string>
+          <string>отверстие</string>
          </property>
         </widget>
        </item>
@@ -133,7 +152,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <property name="spacing">
-        <number>4</number>
+        <number>2</number>
        </property>
        <item>
         <widget class="QComboBox" name="cmbType">
@@ -167,12 +186,12 @@
          </property>
          <item>
           <property name="text">
-           <string>круглый</string>
+           <string>круглое</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>прямоугольный</string>
+           <string>прямоугольное</string>
           </property>
          </item>
         </widget>
@@ -278,6 +297,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="spacing">
+        <number>2</number>
+       </property>
        <item>
         <widget class="QLabel" name="label_9">
          <property name="sizePolicy">
@@ -321,6 +343,9 @@
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <property name="spacing">
+        <number>2</number>
+       </property>
        <item>
         <widget class="QDoubleSpinBox" name="spnDiameter">
          <property name="suffix">

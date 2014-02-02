@@ -33,6 +33,7 @@ QLabelImage::QLabelImage(QWidget *parent) :
 {
     loadingMovie = new QMovie(":images/assets/loading.gif");
     loadingMovie->setParent(this);
+   
     
     qDebug() << loadingMovie->frameCount();
 }
@@ -50,6 +51,12 @@ void QLabelImage::showLoadingPixmap()
     setMovie(loadingMovie);
 //    setScaledContents(false);
     loadingMovie->start();
+}
+
+void QLabelImage::setEmpty()
+{
+    originPixmap = QPixmap();
+    setText("<span style='color:black;font-size:16px;font-weight:bold'>картинок нет T_T</span>");
 }
 
 
@@ -108,5 +115,7 @@ void QLabelImage::mouseReleaseEvent(QMouseEvent *)
 
 void QLabelImage::mousePressEvent(QMouseEvent *e)
 {
-    showImageAtPos(mapToPixmap(e->pos()));
+    if (e->buttons().testFlag(Qt::LeftButton)) {
+        showImageAtPos(mapToPixmap(e->pos()));
+    }
 }

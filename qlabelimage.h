@@ -20,6 +20,7 @@ signals:
     
 public slots:
     void showLoadingPixmap();
+    void setEmpty();
 
     
 protected:

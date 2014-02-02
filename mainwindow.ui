@@ -21,6 +21,18 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
+    <property name="leftMargin">
+     <number>2</number>
+    </property>
+    <property name="topMargin">
+     <number>2</number>
+    </property>
+    <property name="rightMargin">
+     <number>2</number>
+    </property>
+    <property name="bottomMargin">
+     <number>2</number>
+    </property>
     <item row="0" column="0">
      <widget class="QWidget" name="widget" native="true">
       <property name="sizePolicy">
@@ -63,6 +75,9 @@
            <height>16777215</height>
           </size>
          </property>
+         <property name="layoutMode">
+          <enum>QListView::Batched</enum>
+         </property>
         </widget>
        </item>
       </layout>
@@ -94,6 +109,8 @@
      <string>Файл</string>
     </property>
     <addaction name="action_OpenDir"/>
+    <addaction name="separator"/>
+    <addaction name="action_exit"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -103,6 +120,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="action_exit">
+   <property name="text">
+    <string>Выйти</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
  </widget>

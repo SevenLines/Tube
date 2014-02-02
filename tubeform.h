@@ -26,8 +26,10 @@ public:
     void synchronizeWithTube(Tube t);
    
 public slots:    
+    void setInImage();
     void setInImage(QString path);
     void setInImage(QPixmap pixmap);
+    void setOutImage();
     void setOutImage(QString path);
     void setOutImage(QPixmap pixmap);
     void setImage(QPixmap &pixmap, QLabelImage *label);

@@ -27,6 +27,8 @@ public slots:
 private slots:
     void on_action_OpenDir_triggered();
     
+    void on_action_exit_triggered();
+    
 private:
     Ui::MainWindow *ui;
     TubesModel tubesModel;

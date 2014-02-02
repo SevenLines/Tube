@@ -82,3 +82,8 @@ void MainWindow::on_action_OpenDir_triggered()
     
     openDir(dirPath);
 }
+
+void MainWindow::on_action_exit_triggered()
+{
+    close();
+}
