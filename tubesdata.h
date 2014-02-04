@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QObject>
+#include <QMap>
 
 #include "tube.h"
 
@@ -13,13 +14,17 @@ Q_OBJECT
     
 public:
     struct TubeEx {
-//        Tube tube;
-        int number;
+        int number; // номер трубы
+        int length; // длина трубы в метрах
+        int position;
+        
         QString xmlPath;
         /// изображения входного отверстия
         QList<QString> imagesListIn;
         /// изображения выходного отверстия
         QList<QString> imagesListOut;
+        
+        TubeEx() : length(-1), number(-1), position(-1) {}
     };
     
 public:
@@ -27,6 +32,8 @@ public:
     TubesData(QString dirWithImages);
     
     void loadFromDir(QString dirWithImages);
+    QMap<int, int> getPositionInfo(QString dirWithImages);
+    QMap<int, qreal> getLengthInfo(QString dirWithImages);
     
     QList<TubeEx> tubes;
     

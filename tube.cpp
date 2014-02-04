@@ -14,14 +14,14 @@ Tube::Portal::Portal()
     widthTrumpet = 0;
     eyesCount = 1;
     
-    materialPortal = "железобетонный";
-    materialBody = "железобетонный";
-    type = "раструбный";
-    typeCut = "круглый";
+    materialPortal = materials()[0];
+    materialBody = materials()[0];
+    type = portalTypes()[1];
+    typeCut = portalCuts()[0];
     
     thickness = 0.1;
     
-    size.diameter = 0;
+    size.diameter = 1.0;
     size.height = 0;
     size.width = 0;
 }
@@ -77,6 +77,68 @@ Tube::Portal Tube::Portal::readFromXml(QDomNode portalNode)
 /// TUBE CLASS
 /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
 
+QStringList Tube::portalTypes()
+{
+    QStringList types;
+    types << "без оголовка" << "раструбный" << "портальный";
+    return types;
+}
+
+QStringList Tube::materials()
+{
+    QStringList types;
+    types << "железобетон" << "металл" << "дерево";
+    return types;
+}
+
+QStringList Tube::portalCuts()
+{
+    QStringList types;
+    types << "круглое" << "прямоугольное";
+    return types;   
+}
+
+QStringList Tube::obstacles()
+{
+    QStringList types;
+    types << "" 
+          << "периодический водоток" 
+          << "постоянный водоток"
+          << "суходол";
+    return types;      
+}
+
+QStringList Tube::waterCourses()
+{
+    QStringList types;
+    types   << "" 
+            << "суходол" 
+            << "пруд"
+            << "ручей"
+            << "болото";
+    return types;       
+}
+
+QStringList Tube::schedules()
+{
+    QStringList types;
+    types << "" 
+          << "безнапорный" 
+          << "напорный";
+    return types;     
+}
+
+QStringList Tube::conditions()
+{
+    QStringList types;
+    types << "отличное" 
+          << "хорошее" 
+          << "удовл."
+             << "плохое"
+                << "аварийное";
+    return types;     
+}
+
 Tube::Tube()
     : ready(false)
 {
@@ -89,9 +151,9 @@ Tube::Tube()
     moundHeight = 0;
     position = 0;
     
-    condition = "удовлетворительное";
-    obstacle = "периодический водоток";
-    schedule = "безнапорный";
+    condition = conditions()[2];
+    obstacle = obstacles()[1];
+    schedule = schedules()[1];
     
     skew = 0;
 }

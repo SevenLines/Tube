@@ -11,7 +11,10 @@ TubesModel::TubesModel(QObject *parent) :
 
 int TubesModel::rowCount(const QModelIndex &) const
 {
-    return tubesData.count();
+    if (tubesDataLoader.isRunning()) {
+        return 0;
+    }
+    return tubesDataLoader.tubesData.count();
 }
 
 QVariant TubesModel::data(const QModelIndex &index, int role) const
@@ -19,11 +22,15 @@ QVariant TubesModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
     
+    if (tubesDataLoader.isRunning()) {
+        return QVariant();
+    }
+    
     switch(role) {
     case Qt::DisplayRole:
-        return tubesData[index.row()].number;
+        return tubesDataLoader.tubesData[index.row()].number;
     case Qt::CheckStateRole:
-        return QFile(tubesData[index.row()].xmlPath).exists();
+        return QFile(tubesDataLoader.tubesData[index.row()].xmlPath).exists();
     }
     
     return QVariant();
@@ -31,7 +38,12 @@ QVariant TubesModel::data(const QModelIndex &index, int role) const
 
 TubesData::TubeEx &TubesModel::data(const QModelIndex &index)
 {
-    return tubesData[index.row()];
+    if (tubesDataLoader.isRunning()) {
+        TubesData::TubeEx tube;
+        return tube;
+    }
+    
+    return tubesDataLoader.tubesData[index.row()];
 }
 
 
@@ -47,8 +59,21 @@ Qt::ItemFlags TubesModel::flags(const QModelIndex &index) const
 
 void TubesModel::loadFromDir(QString imageDirPath)
 {
+    if (tubesDataLoader.isRunning()) {
+        return;
+    }
+    
+    tubesDataLoader.setDirWithImages(imageDirPath);
+    connect(&tubesDataLoader, SIGNAL(finished()),
+            SLOT(resetModel()));
+    connect(&tubesDataLoader, SIGNAL(finished()),
+            SIGNAL(afterLoad()));
+    tubesDataLoader.loadTubesInfo();
+}
+
+void TubesModel::resetModel()
+{
     beginResetModel();
-    tubesData.loadFromDir(imageDirPath);
     endResetModel();
 }
 

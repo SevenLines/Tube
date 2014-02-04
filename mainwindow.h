@@ -19,6 +19,7 @@ public:
     
 public slots:
     void openDir(QString dirPath);
+    void openDir();
     void selectTube(QModelIndex index);
     
     void saveIni();

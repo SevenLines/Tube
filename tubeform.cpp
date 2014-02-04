@@ -5,6 +5,7 @@
 #include <QMouseEvent>
 #include <QMutexLocker>
 #include <QFileInfo>
+#include "qwidgethelper.h"
 
 #include "qloadimagethread.h"
 
@@ -16,6 +17,23 @@ TubeForm::TubeForm(QWidget *parent) :
     
     connect(ui->btnSave, SIGNAL(clicked()),
             SLOT(save()));
+    
+    foreach(QString t, Tube::conditions()) {
+        ui->cmbCondition->addItem(t);
+    }
+    
+    foreach(QString t, Tube::obstacles()) {
+        ui->cmbObstacle->addItem(t);
+    }
+    
+    foreach(QString t, Tube::schedules()) {
+        ui->cmbSchedule->addItem(t);
+    }
+    
+    foreach(QString t, Tube::waterCourses()) {
+        ui->cmbWatercourse->addItem(t);
+    }
+   
 }
 
 TubeForm::~TubeForm()
@@ -33,6 +51,14 @@ void TubeForm::setTube(TubesData::TubeEx &tube)
     
     // load tube card
     Tube t = Tube::readFromFile(tube.xmlPath);
+    if (t.fullLength == 0 && tube.length > 0) {
+        t.fullLength = tube.length;
+    }
+    
+    if (t.position <= 0 && tube.position > 0) {
+//        qDebug() << tube.position;
+        t.position = tube.position;
+    }
     // synchronize form with loaded tube
     synchronizeWithTube(t);
     
@@ -108,10 +134,10 @@ void TubeForm::synchronizeWithTube(Tube t)
     ui->lblTubeNumber->setText(QString("%1")
                                .arg( tube.number, 3, 10, QLatin1Char('0')));
     
-    ui->cmbCondition->setEditText(t.condition);
-    ui->cmbObstacle->setEditText(t.obstacle);
-    ui->cmbSchedule->setEditText(t.schedule);
-    ui->cmbWatercourse->setEditText(t.waterCourse);
+    QWidgetHelper::setEditText(ui->cmbCondition, t.condition);
+    QWidgetHelper::setEditText(ui->cmbObstacle, t.obstacle);
+    QWidgetHelper::setEditText(ui->cmbSchedule, t.schedule);
+    QWidgetHelper::setEditText(ui->cmbWatercourse, t.waterCourse);
     
     ui->spnLength->setValue(t.fullLength);
     ui->spnMoundHeight->setValue(t.moundHeight);
@@ -217,6 +243,7 @@ void TubeForm::setImage(QPixmap &pixmap, QLabelImage *label)
 
 void TubeForm::save()
 {
+    ui->lblInfo->showProcess(); // fake animation
     getTube().writeToFile(tube.xmlPath);
 }
 

@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">font-size:12px;
+   <string notr="true">
 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -36,7 +36,7 @@
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="spacing">
-      <number>2</number>
+      <number>6</number>
      </property>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -160,23 +160,8 @@
           <bool>true</bool>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>-1</number>
          </property>
-         <item>
-          <property name="text">
-           <string>без оголовка</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>раструбный</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>портальный</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item>
@@ -184,16 +169,6 @@
          <property name="editable">
           <bool>true</bool>
          </property>
-         <item>
-          <property name="text">
-           <string>круглое</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>прямоугольное</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item>
@@ -201,21 +176,6 @@
          <property name="editable">
           <bool>true</bool>
          </property>
-         <item>
-          <property name="text">
-           <string>железобетонный</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>металлический</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>деревянный</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item>
@@ -223,21 +183,6 @@
          <property name="editable">
           <bool>true</bool>
          </property>
-         <item>
-          <property name="text">
-           <string>железобетонный</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>металлический</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>деревянный</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item>

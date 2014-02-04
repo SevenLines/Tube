@@ -1,19 +1,36 @@
 #include "portalform.h"
 #include "ui_portalform.h"
 
+#include "qwidgethelper.h"
+
 PortalForm::PortalForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PortalForm)
 {
     ui->setupUi(this);
+    
+    // fill combos
+    foreach(QString t, Tube::portalCuts()) {
+        ui->cmbTypeCut->addItem(t);
+    }
+    
+    foreach(QString t, Tube::materials()) {
+        ui->cmbMaterialBody->addItem(t);
+        ui->cmbMaterialPortal->addItem(t);
+    }
+    
+    foreach(QString t, Tube::portalTypes()) {
+        ui->cmbType->addItem(t);
+    }
+    
 }
 
 void PortalForm::setPortal(Tube::Portal &portal)
 {
-    ui->cmbMaterialPortal->setEditText(portal.materialPortal);
-    ui->cmbMaterialBody->setEditText(portal.materialBody);
-    ui->cmbType->setEditText(portal.type);
-    ui->cmbTypeCut->setEditText(portal.typeCut);
+    QWidgetHelper::setEditText(ui->cmbMaterialPortal, portal.materialPortal);
+    QWidgetHelper::setEditText(ui->cmbMaterialBody, portal.materialBody);
+    QWidgetHelper::setEditText(ui->cmbType, portal.type);
+    QWidgetHelper::setEditText(ui->cmbTypeCut, portal.typeCut);
     
     ui->spnDiameter->setValue(portal.size.diameter);
     ui->spnHeight->setValue(portal.size.height);

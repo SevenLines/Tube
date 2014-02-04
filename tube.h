@@ -2,6 +2,7 @@
 #define TUBE_H
 
 #include <QString>
+#include <QStringList>
 #include <QXmlStreamWriter>
 #include <QtXml/QDomDocument>
 
@@ -15,6 +16,13 @@ public:
         portal=2 // портальный
     };
     
+    static QStringList portalTypes();
+    static QStringList materials();
+    static QStringList portalCuts();
+    static QStringList obstacles();
+    static QStringList waterCourses();
+    static QStringList schedules();
+    static QStringList conditions();
     
     /// материал
     enum Material {

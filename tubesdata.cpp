@@ -38,7 +38,6 @@ void TubesData::loadFromDir(QString dirWithImages)
     QRegExp regExp(imageNameTemplate);
     
     tubes.clear();
-
     
     // first get all available tubes
     foreach(QFileInfo file, files) {
@@ -49,12 +48,28 @@ void TubesData::loadFromDir(QString dirWithImages)
             addTube(number, regExp.cap(2), file.absoluteFilePath());
         }
     }    
-   
+    
     /// упорядачываем все массивы, блин не смог написать слово >_>
     qSort(tubes.begin(), tubes.end(),
           [](TubeEx t1, TubeEx t2){ return t1.number < t2.number;});
     
+    /// формируем карты с информацией по длине и положению труб
+    /// берутся из файлов length.txt / position.txt в папке с изображениями
+    auto tubesLengthInfo = getLengthInfo(dirWithImages);
+    auto tubePositionInfo = getPositionInfo(dirWithImages);
+    
     for(int i=0;i<tubes.count();++i) {
+        /// set length if any
+        if (tubesLengthInfo.contains(tubes[i].number)) {
+            tubes[i].length = tubesLengthInfo[tubes[i].number];
+        }
+        
+        /// set position if any
+        if (tubePositionInfo.contains(tubes[i].number)) {
+//            qDebug() << 
+            tubes[i].position = tubePositionInfo[tubes[i].number];
+        }
+        
         qSort(tubes[i].imagesListIn);
         qSort(tubes[i].imagesListOut);
         
@@ -69,40 +84,72 @@ void TubesData::loadFromDir(QString dirWithImages)
         foreach(QString file, tubes[i].imagesListOut) {
             if (verbose) qDebug() << file;
         }
-        
-        int number = tubes[i].number;
-        
+
         // create tubes xml dir
         QDir xmlDir(QString("%1/%2")
                      .arg(dirWithImages)
                      .arg(xmlFolderName));
         
+        // create xml dir if not exists
         if (!xmlDir.exists()) {
             xmlDir.mkpath(xmlDir.path());
         }
         
-        // create xml file handler
-        QFileInfo xmlFileTube(xmlDir.filePath(QString("%1.xml")
-                                          .arg(number, 3, 10, QLatin1Char('0'))));
-        
-        tubes[i].xmlPath = xmlFileTube.filePath();
+        tubes[i].xmlPath = xmlDir.filePath(QString("%1.xml")
+                                           .arg(tubes[i].number, 3, 10, QLatin1Char('0')));
         if (verbose) qDebug() << tubes[i].xmlPath;
-        
-        /*if (!xmlFileTube.exists()) {
-            if (verbose) qDebug() << "create new";
-            if (xmlFileTube.open(QIODevice::WriteOnly)) {
-                xmlFileTube.close();
-            } else {
-                if (verbose) qDebug() << xmlFileTube.errorString();
-            }
-        }
-        tubes[i].tube.number = number;*/
-        
         if (verbose) qDebug() << "-=-=-=-";
     }
     
     emit afterLoadFromDir();
     
+}
+
+QMap<int, int> TubesData::getPositionInfo(QString dirWithImages)
+{
+    QMap<int, int> position;
+    QFile file(dirWithImages + "/" + "position.txt");
+    QRegExp regExp("(\\d+)\\s+(\\d+)");
+    if (file.open(QIODevice::ReadOnly)) {
+        QTextStream ts(&file);
+        while(!ts.atEnd()) {
+           QString line = ts.readLine();
+           qDebug() << line;
+           if (regExp.indexIn(line) != -1) {
+               int tubeNumber = regExp.cap(1).toInt();
+               int tubePosition = regExp.cap(2).toInt();
+               position[tubeNumber] = tubePosition;
+           }
+        }
+        
+    }
+    
+    return position;
+}
+
+QMap<int, qreal> TubesData::getLengthInfo(QString dirWithImages)
+{
+    QMap<int, qreal> length;
+    QFile file(dirWithImages + "/" + "length.txt");
+    QRegExp regExp("(\d+)\s+(.+)");
+    if (file.open(QIODevice::ReadOnly)) {
+        QTextStream ts(&file);
+        while(!ts.atEnd()) {
+           QString line = ts.readLine();
+           line = line.trimmed();
+           if (regExp.indexIn(line) != -1) {
+               int tubeNumber = regExp.cap(1).toInt();
+               bool result = false;
+               qreal tubeLength = regExp.cap(2).toDouble(&result);
+               if (result) {
+                length[tubeNumber] = tubeLength;
+               }
+           }
+        }
+        
+    }
+    
+    return length;    
 }
 
 int TubesData::count() const

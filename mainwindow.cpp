@@ -13,8 +13,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     
-    connect(ui->lstTubes, SIGNAL(activated(QModelIndex)),
+    connect(ui->lstTubes, SIGNAL(doubleClicked(QModelIndex)),
             SLOT(selectTube(QModelIndex)));
+    connect(&tubesModel, SIGNAL(afterLoad()),
+            ui->lblProcess, SLOT(hideProcess()));
+    connect(ui->btnReload, SIGNAL(clicked()),
+            SLOT(openDir()));
     
     ui->lstTubes->setModel(&tubesModel);
     
@@ -31,8 +35,14 @@ MainWindow::~MainWindow()
 void MainWindow::openDir(QString dirPath)
 {
     lastDir = dirPath;
+    ui->lblProcess->showProcess(0);
     tubesModel.loadFromDir(dirPath);
     setWindowTitle(lastDir);
+}
+
+void MainWindow::openDir()
+{
+    openDir(lastDir);
 }
 
 void MainWindow::selectTube(QModelIndex index)

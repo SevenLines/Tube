@@ -5,13 +5,14 @@
 #include <QAbstractListModel>
 #include "tube.h"
 #include "tubesdata.h"
+#include "tubesdataloader.h"
 
 class TubesModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
     explicit TubesModel(QObject *parent = 0);
-    TubesData tubesData;
+    TubesDataLoader tubesDataLoader;
     
 signals:
     
@@ -29,6 +30,9 @@ public:
     
 public slots:
     void loadFromDir(QString imageDirPath);
+    void resetModel();
+signals:
+    void afterLoad();
 
 };
 

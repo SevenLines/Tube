@@ -35,7 +35,7 @@ QLabelImage::QLabelImage(QWidget *parent) :
     loadingMovie->setParent(this);
    
     
-    qDebug() << loadingMovie->frameCount();
+//    qDebug() << loadingMovie->frameCount();
 }
 
 void QLabelImage::setOriginPixmap(QPixmap originPixmap)
