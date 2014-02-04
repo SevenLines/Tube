@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>615</width>
-    <height>459</height>
+    <width>666</width>
+    <height>621</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -285,21 +285,117 @@
           </sizepolicy>
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
-          <item row="4" column="0" colspan="2">
-           <widget class="QGroupBox" name="groupBox_2">
-            <property name="title">
-             <string>Дефекты</string>
+          <item row="1" column="0" colspan="2">
+           <widget class="QWidget" name="widget_6" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <widget class="QWidget" name="widget" native="true">
-             <property name="geometry">
-              <rect>
-               <x>520</x>
-               <y>40</y>
-               <width>120</width>
-               <height>80</height>
-              </rect>
+            <layout class="QGridLayout" name="gridLayout_7">
+             <property name="leftMargin">
+              <number>0</number>
              </property>
-            </widget>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="lblTubeNumber">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">border: 1px solid silver;
+border-radius:4px;
+padding:2px;
+font-size: 16px;
+font-weight:bold;
+color:white;
+background:rgb(38, 106, 208);</string>
+               </property>
+               <property name="text">
+                <string>^.^</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="3">
+              <widget class="QSpinBox" name="spnPositionM">
+               <property name="suffix">
+                <string/>
+               </property>
+               <property name="prefix">
+                <string/>
+               </property>
+               <property name="maximum">
+                <number>999</number>
+               </property>
+               <property name="singleStep">
+                <number>10</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="spnPositionKm">
+               <property name="suffix">
+                <string/>
+               </property>
+               <property name="prefix">
+                <string/>
+               </property>
+               <property name="maximum">
+                <number>9999999</number>
+               </property>
+               <property name="singleStep">
+                <number>1</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QLabel" name="label">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>км</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="4">
+              <widget class="QLabel" name="label_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>м</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
           <item row="2" column="0" colspan="2">
@@ -476,19 +572,23 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0" colspan="2">
-           <widget class="QWidget" name="widget_6" native="true">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+          <item row="3" column="1">
+           <widget class="QLabelInfo" name="lblInfo">
+            <property name="text">
+             <string/>
             </property>
-            <layout class="QGridLayout" name="gridLayout_7">
+           </widget>
+          </item>
+          <item row="4" column="0" colspan="2">
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>Дефекты</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_9">
              <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
               <number>0</number>
              </property>
              <property name="rightMargin">
@@ -497,102 +597,217 @@
              <property name="bottomMargin">
               <number>0</number>
              </property>
-             <item row="0" column="0">
-              <widget class="QLabel" name="lblTubeNumber">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
+             <item row="1" column="0">
+              <widget class="QScrollArea" name="scrlDeffects">
+               <property name="widgetResizable">
+                <bool>true</bool>
                </property>
-               <property name="styleSheet">
-                <string notr="true">border: 1px solid silver;
-border-radius:4px;
-padding:2px;
-font-size: 16px;
-font-weight:bold;
-color:white;
-background:rgb(38, 106, 208);</string>
-               </property>
-               <property name="text">
-                <string>^.^</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="3">
-              <widget class="QSpinBox" name="spnPositionM">
-               <property name="suffix">
-                <string/>
-               </property>
-               <property name="prefix">
-                <string/>
-               </property>
-               <property name="maximum">
-                <number>999</number>
-               </property>
-               <property name="singleStep">
-                <number>10</number>
-               </property>
-               <property name="value">
-                <number>0</number>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QSpinBox" name="spnPositionKm">
-               <property name="suffix">
-                <string/>
-               </property>
-               <property name="prefix">
-                <string/>
-               </property>
-               <property name="maximum">
-                <number>9999999</number>
-               </property>
-               <property name="singleStep">
-                <number>1</number>
-               </property>
-               <property name="value">
-                <number>0</number>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="2">
-              <widget class="QLabel" name="label">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>км</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="4">
-              <widget class="QLabel" name="label_2">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>м</string>
-               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>328</width>
+                  <height>540</height>
+                 </rect>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_10">
+                 <item row="10" column="0">
+                  <widget class="QCheckBox" name="checkBox_19">
+                   <property name="text">
+                    <string>Частичное разрушение портала</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="25" column="0">
+                  <widget class="QCheckBox" name="checkBox_6">
+                   <property name="text">
+                    <string>Зарастание русла</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="22" column="0">
+                  <widget class="QCheckBox" name="checkBox_21">
+                   <property name="text">
+                    <string>Наличие мусора на входе</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="12" column="0">
+                  <widget class="QCheckBox" name="checkBox_10">
+                   <property name="text">
+                    <string>Разрушение укрепления русла</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="14" column="0">
+                  <widget class="QCheckBox" name="checkBox_18">
+                   <property name="text">
+                    <string>Разрушение портала</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="21" column="0">
+                  <widget class="QCheckBox" name="checkBox_8">
+                   <property name="text">
+                    <string>Наличие мусора на выходе</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="26" column="0">
+                  <widget class="QCheckBox" name="checkBox_16">
+                   <property name="text">
+                    <string>Заиливание</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="17" column="0">
+                  <widget class="Line" name="line">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="19" column="0">
+                  <widget class="QCheckBox" name="checkBox_13">
+                   <property name="text">
+                    <string>Постороние предметы в теле трубы</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="15" column="0">
+                  <widget class="QCheckBox" name="checkBox_12">
+                   <property name="text">
+                    <string>Разрушение раструба</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="13" column="0">
+                  <widget class="QCheckBox" name="checkBox_11">
+                   <property name="text">
+                    <string>Разрушение укрепления откосов</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="24" column="0">
+                  <widget class="QCheckBox" name="checkBox_3">
+                   <property name="text">
+                    <string>Застой воды</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="18" column="0">
+                  <widget class="QCheckBox" name="checkBox_7">
+                   <property name="text">
+                    <string>Заросли травы и кустарников</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="8" column="0">
+                  <widget class="QCheckBox" name="checkBox_2">
+                   <property name="text">
+                    <string>Частичное разрушение укрепления откосов</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QCheckBox" name="checkBox">
+                   <property name="text">
+                    <string>Разрушение заполнения швов между звеньями трубы</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="0">
+                  <widget class="QCheckBox" name="checkBox_15">
+                   <property name="text">
+                    <string>Частичное перекрытие ВЫХОДНОГО отверстия грунтом</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="0">
+                  <widget class="QCheckBox" name="checkBox_14">
+                   <property name="text">
+                    <string>Частичное перекрытие ВХОДНОГО отверстия грунтом</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="0">
+                  <widget class="QCheckBox" name="checkBox_9">
+                   <property name="text">
+                    <string>Частичное разрушение раструба</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QCheckBox" name="checkBox_17">
+                   <property name="text">
+                    <string>Сколы бетона без оголения арматуры</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="0">
+                  <widget class="QCheckBox" name="checkBox_4">
+                   <property name="text">
+                    <string>Частичное разрушение укрепления русла</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QCheckBox" name="checkBox_5">
+                   <property name="text">
+                    <string>Осыпь откоса</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QCheckBox" name="checkBox_20">
+                   <property name="text">
+                    <string>Недостаточная толщина засыпки над трубой</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="0">
+                  <widget class="Line" name="line_4">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="11" column="0">
+                  <widget class="Line" name="line_2">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="23" column="0">
+                  <widget class="Line" name="line_3">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="20" column="0">
+                  <widget class="Line" name="line_5">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
               </widget>
              </item>
             </layout>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QLabelInfo" name="lblInfo">
-            <property name="text">
-             <string/>
+          <item row="5" column="0" colspan="2">
+           <widget class="QTextEdit" name="txtCustomDeffects">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>50</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -607,6 +822,11 @@ background:rgb(38, 106, 208);</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>QLabelInfo</class>
+   <extends>QLabel</extends>
+   <header>qlabelinfo.h</header>
+  </customwidget>
+  <customwidget>
    <class>QLabelImage</class>
    <extends>QLabel</extends>
    <header>qlabelimage.h</header>
@@ -616,11 +836,6 @@ background:rgb(38, 106, 208);</string>
    <extends>QWidget</extends>
    <header>portalform.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>QLabelInfo</class>
-   <extends>QLabel</extends>
-   <header>qlabelinfo.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

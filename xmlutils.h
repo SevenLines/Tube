@@ -1,6 +1,7 @@
 #ifndef XMLUTILS_H
 #define XMLUTILS_H
 
+#include <QStringList>
 #include <QXmlStreamWriter>
 #include <QtXml/QDomDocument>
 
@@ -15,6 +16,9 @@ public:
     static int readFirstInt(QDomNode *node, QString name);
     static qreal readFirstReal(QDomNode *node, QString name);
     static QString readFirstString(QDomNode *node, QString name);
+    
+    static void getStringList(QDomNode listRootNode, QStringList &list);
+    static void writeStringList(QXmlStreamWriter *xml, QStringList &list);
 };
 
 #endif // XMLUTILS_H

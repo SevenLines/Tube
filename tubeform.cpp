@@ -107,6 +107,8 @@ Tube TubeForm::getTube()
     // create tube object according to current interface state
     Tube tube;
     
+    tube.number = ui->lblTubeNumber->text().toInt();
+    
     tube.condition = ui->cmbCondition->currentText();
     tube.obstacle = ui->cmbObstacle->currentText();
     tube.schedule = ui->cmbSchedule->currentText();
@@ -126,7 +128,39 @@ Tube TubeForm::getTube()
         tube.out = tube.in;
     }
     
+    tube.deffects = deffectList();
+    tube.customDeffects = ui->txtCustomDeffects->toPlainText();
+    
     return tube;
+}
+
+QStringList TubeForm::deffectList()
+{
+    QStringList lst;
+    foreach(auto w, ui->scrollAreaWidgetContents->children()) {
+        QCheckBox *chk = dynamic_cast<QCheckBox*>(w);
+        if (chk) {
+            if (chk->isChecked()) {
+               lst.append(chk->text()); 
+            }
+        }
+    }
+    return lst;
+}
+
+void TubeForm::setDeffects(QStringList &deffectsList)
+{
+    foreach(auto w, ui->scrollAreaWidgetContents->children()) {
+        QCheckBox *chk = dynamic_cast<QCheckBox*>(w);
+        if (chk) {
+            chk->setChecked(false);
+            foreach (QString str, deffectsList) {
+                if (str == chk->text()) {
+                    chk->setChecked(true);
+                }
+            }
+        }
+    }
 }
 
 void TubeForm::synchronizeWithTube(Tube t)
@@ -144,6 +178,9 @@ void TubeForm::synchronizeWithTube(Tube t)
     ui->spnSkew->setValue(t.skew);
     ui->spnPositionKm->setValue(t.position / 1000);
     ui->spnPositionM->setValue(t.position % 1000);
+    
+    ui->txtCustomDeffects->setPlainText(t.customDeffects);
+    setDeffects(t.deffects);
     
     ui->wdgPortalIn->setPortal(t.in);
     ui->wdgPortalOut->setPortal(t.out);

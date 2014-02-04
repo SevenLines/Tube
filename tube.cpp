@@ -179,7 +179,13 @@ void Tube::writeToXml(QXmlStreamWriter *xml)
     
     xml->writeStartElement("out");
         out.writeToXml(xml);
-    xml->writeEndElement();   
+    xml->writeEndElement(); 
+    
+    xml->writeStartElement("deffects");
+        XmlUtils::writeStringList(xml, deffects);
+    xml->writeEndElement();
+    
+    xml->writeTextElement("customDeffects", customDeffects);
     
     xml->writeEndElement();
 }
@@ -224,6 +230,9 @@ Tube Tube::readFromXml(QDomNode tubeNode)
     
     tube.in = Portal::readFromXml(tubeNode.firstChildElement("in"));
     tube.out = Portal::readFromXml(tubeNode.firstChildElement("out"));
+    
+    XmlUtils::getStringList(tubeNode.firstChildElement("deffects"), tube.deffects);
+    tube.customDeffects = XmlUtils::readFirstString(&tubeNode, "customDeffects");
     
     return tube;
 }

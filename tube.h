@@ -78,6 +78,9 @@ public:
     QString schedule; // режим водотока
     QString condition; // состояние
     
+    QStringList deffects;
+    QString customDeffects;
+    
     qreal fullLength; // полная длина
     qreal moundHeight; // высота насыпи
     

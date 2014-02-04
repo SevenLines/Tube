@@ -21,6 +21,8 @@ public:
     
     void setTube(TubesData::TubeEx &tube);
     Tube getTube();
+    QStringList deffectList();
+    void setDeffects(QStringList &deffectsList);
     
     /// creates local copy of tube using info from tubeEx
     void synchronizeWithTube(Tube t);

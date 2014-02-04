@@ -55,3 +55,21 @@ QString XmlUtils::readFirstString(QDomNode *node, QString name)
     if (elem.isNull()) return QString();
     return elem.text();
 }
+
+void XmlUtils::getStringList(QDomNode listRootNode, QStringList &list)
+{
+    auto childs = listRootNode.childNodes();
+    for(int i=0;i<childs.count();++i) {
+        auto elem = childs.at(i).toElement();
+        if (!elem.isNull() && elem.tagName() == "li") {
+            list.append(elem.text());
+        }
+    }
+}
+
+void XmlUtils::writeStringList(QXmlStreamWriter *xml, QStringList &list)
+{
+    foreach(QString str, list) {
+        xml->writeTextElement("li", str);
+    }
+}
