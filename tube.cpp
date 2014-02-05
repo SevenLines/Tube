@@ -10,7 +10,7 @@
 
 Tube::Portal::Portal()
 {
-    widthPortal = 0;
+    widthPortal =  1.1;
     widthTrumpet = 0;
     eyesCount = 1;
     
@@ -22,8 +22,8 @@ Tube::Portal::Portal()
     thickness = 0.1;
     
     size.diameter = 1.0;
-    size.height = 0;
-    size.width = 0;
+    size.height = 1.0;
+    size.width = 1.0;
 }
 
 void Tube::Portal::writeToXml(QXmlStreamWriter *xml)
@@ -71,6 +71,26 @@ Tube::Portal Tube::Portal::readFromXml(QDomNode portalNode)
     portal.size.width = XmlUtils::readFirstReal(&sizeNode, "width");
     
     return portal;
+}
+
+bool Tube::Portal::operator==(Tube::Portal &p)
+{
+    return p.eyesCount == eyesCount &&
+            p.materialBody == materialBody &&
+            p.materialPortal == materialPortal &&
+            p.size.diameter == size.diameter &&
+            p.size.width == size.width &&
+            p.size.height == size.height &&
+            p.thickness == thickness &&
+            p.type == type &&
+            p.typeCut == typeCut &&
+            p.widthPortal == widthPortal &&
+            p.widthTrumpet == widthTrumpet;
+}
+
+bool Tube::Portal::operator!=(Tube::Portal &p)
+{
+    return !(p==*this);
 }
 
 /// /// /// /// /// /// /// /// /// /// /// /// /// ///

@@ -1,5 +1,6 @@
 #include "qloadimagethread.h"
 #include <QPixmap>
+#include <QDebug>
 
 QLoadImageThread::QLoadImageThread(QObject *parent) :
     QThread(parent)
@@ -7,11 +8,10 @@ QLoadImageThread::QLoadImageThread(QObject *parent) :
     setDeleteOnCompleted(true);
 }
 
-QPixmap QLoadImageThread::getPixmap()
+QPixmap QLoadImageThread::pixmap()
 {
-    return pixmap;
+    return mPixmap;   
 }
-
 
 void QLoadImageThread::setPath(QString imagePath)
 {
@@ -26,6 +26,7 @@ void QLoadImageThread::setDeleteOnCompleted(bool fDelete)
 
 void QLoadImageThread::run()
 {
-    pixmap.load(this->imagePath);
-    emit completed(pixmap);
+    mPixmap = QPixmap();
+    mPixmap.load(this->imagePath);
+    emit completed(mPixmap);
 }

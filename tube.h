@@ -59,6 +59,9 @@ public:
         
         void writeToXml(QXmlStreamWriter *xml);
         static Portal readFromXml(QDomNode portalNode);
+        
+        bool operator==(Portal &p);
+        bool operator!=(Portal &p);
     };
     
 public:

@@ -127,7 +127,7 @@
               </widget>
              </item>
              <item row="0" column="2">
-              <widget class="QLabelImage" name="lblImageIn">
+              <widget class="QLabelImageZoom" name="lblImageIn">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
                  <horstretch>0</horstretch>
@@ -182,7 +182,7 @@
             </property>
             <layout class="QGridLayout" name="gridLayout_5">
              <property name="leftMargin">
-              <number>2</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
               <number>2</number>
@@ -208,7 +208,7 @@
                 <string>редактировать</string>
                </property>
                <property name="flat">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
                <property name="checkable">
                 <bool>true</bool>
@@ -220,10 +220,16 @@
                 <property name="leftMargin">
                  <number>0</number>
                 </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
                 <property name="rightMargin">
                  <number>0</number>
                 </property>
                 <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <property name="spacing">
                  <number>0</number>
                 </property>
                 <item row="0" column="0">
@@ -240,7 +246,7 @@
               </widget>
              </item>
              <item row="0" column="2">
-              <widget class="QLabelImage" name="lblImageOut">
+              <widget class="QLabelImageZoom" name="lblImageOut">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
                  <horstretch>0</horstretch>
@@ -413,6 +419,9 @@ background:rgb(38, 106, 208);</string>
                 <property name="text">
                  <string>Препятствие</string>
                 </property>
+                <property name="buddy">
+                 <cstring>cmbObstacle</cstring>
+                </property>
                </widget>
               </item>
               <item>
@@ -425,6 +434,9 @@ background:rgb(38, 106, 208);</string>
                 </property>
                 <property name="text">
                  <string>Водоток</string>
+                </property>
+                <property name="buddy">
+                 <cstring>cmbWatercourse</cstring>
                 </property>
                </widget>
               </item>
@@ -439,6 +451,9 @@ background:rgb(38, 106, 208);</string>
                 <property name="text">
                  <string>Режим протекания</string>
                 </property>
+                <property name="buddy">
+                 <cstring>cmbSchedule</cstring>
+                </property>
                </widget>
               </item>
               <item>
@@ -451,6 +466,9 @@ background:rgb(38, 106, 208);</string>
                 </property>
                 <property name="text">
                  <string>Состояние</string>
+                </property>
+                <property name="buddy">
+                 <cstring>cmbCondition</cstring>
                 </property>
                </widget>
               </item>
@@ -465,6 +483,9 @@ background:rgb(38, 106, 208);</string>
                 <property name="text">
                  <string>Полная длина</string>
                 </property>
+                <property name="buddy">
+                 <cstring>spnLength</cstring>
+                </property>
                </widget>
               </item>
               <item>
@@ -478,6 +499,9 @@ background:rgb(38, 106, 208);</string>
                 <property name="text">
                  <string>Высота насыпи</string>
                 </property>
+                <property name="buddy">
+                 <cstring>spnMoundHeight</cstring>
+                </property>
                </widget>
               </item>
               <item>
@@ -490,6 +514,9 @@ background:rgb(38, 106, 208);</string>
                 </property>
                 <property name="text">
                  <string>Уклон по лотку</string>
+                </property>
+                <property name="buddy">
+                 <cstring>spnSkew</cstring>
                 </property>
                </widget>
               </item>
@@ -599,6 +626,9 @@ background:rgb(38, 106, 208);</string>
              </property>
              <item row="1" column="0">
               <widget class="QScrollArea" name="scrlDeffects">
+               <property name="verticalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOff</enum>
+               </property>
                <property name="widgetResizable">
                 <bool>true</bool>
                </property>
@@ -607,8 +637,8 @@ background:rgb(38, 106, 208);</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>328</width>
-                  <height>540</height>
+                  <width>424</width>
+                  <height>666</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_10">
@@ -827,17 +857,54 @@ background:rgb(38, 106, 208);</string>
    <header>qlabelinfo.h</header>
   </customwidget>
   <customwidget>
-   <class>QLabelImage</class>
-   <extends>QLabel</extends>
-   <header>qlabelimage.h</header>
-  </customwidget>
-  <customwidget>
    <class>PortalForm</class>
    <extends>QWidget</extends>
    <header>portalform.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>QLabelImageZoom</class>
+   <extends>QLabel</extends>
+   <header>qlabelimagezoom.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>spnPositionKm</tabstop>
+  <tabstop>spnPositionM</tabstop>
+  <tabstop>cmbObstacle</tabstop>
+  <tabstop>cmbWatercourse</tabstop>
+  <tabstop>cmbSchedule</tabstop>
+  <tabstop>cmbCondition</tabstop>
+  <tabstop>spnLength</tabstop>
+  <tabstop>spnMoundHeight</tabstop>
+  <tabstop>spnSkew</tabstop>
+  <tabstop>btnSave</tabstop>
+  <tabstop>scrlDeffects</tabstop>
+  <tabstop>grpPortalOut</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>checkBox</tabstop>
+  <tabstop>checkBox_17</tabstop>
+  <tabstop>checkBox_20</tabstop>
+  <tabstop>checkBox_5</tabstop>
+  <tabstop>checkBox_15</tabstop>
+  <tabstop>checkBox_14</tabstop>
+  <tabstop>checkBox_13</tabstop>
+  <tabstop>checkBox_12</tabstop>
+  <tabstop>checkBox_11</tabstop>
+  <tabstop>checkBox_3</tabstop>
+  <tabstop>checkBox_7</tabstop>
+  <tabstop>checkBox_8</tabstop>
+  <tabstop>checkBox_4</tabstop>
+  <tabstop>txtCustomDeffects</tabstop>
+  <tabstop>checkBox_9</tabstop>
+  <tabstop>checkBox_2</tabstop>
+  <tabstop>checkBox_18</tabstop>
+  <tabstop>checkBox_6</tabstop>
+  <tabstop>checkBox_16</tabstop>
+  <tabstop>checkBox_10</tabstop>
+  <tabstop>checkBox_21</tabstop>
+  <tabstop>checkBox_19</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

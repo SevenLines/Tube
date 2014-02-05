@@ -7,14 +7,14 @@
 class QLoadImageThread : public QThread
 {
     Q_OBJECT
-    QPixmap pixmap;
+    QPixmap mPixmap;
     QString imagePath;
     
     bool fDeleteOnComplete;
     
 public:
     explicit QLoadImageThread(QObject *parent = 0);
-    QPixmap getPixmap();
+    QPixmap pixmap();
     
 signals:
     void completed(QPixmap pixmap);

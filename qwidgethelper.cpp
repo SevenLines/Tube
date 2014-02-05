@@ -12,3 +12,10 @@ void QWidgetHelper::setEditText(QComboBox *comboBox, QString text, bool addIfNot
         }
     }
 }
+
+void QWidgetHelper::fillComboBox(QComboBox *comboBox, QStringList items)
+{
+    foreach(QString str, items) {
+        comboBox->addItem(str);
+    }
+}

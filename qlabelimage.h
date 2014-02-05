@@ -2,35 +2,41 @@
 #define QLABELIMAGE_H
 
 #include <QLabel>
+#include "qloadimagethread.h"
 
 class QLabelImage : public QLabel
 {
     Q_OBJECT
-private:
+protected:
     QMovie *loadingMovie;
-    QPixmap originPixmap;
+//    QLoadImageThread imageLoader;
+    bool mFitImage;
+    QPixmap mPixmap;
+    
     void showPixmapProp();
-    void showImageAtPos(QPoint pos);
+    void resizeEvent(QResizeEvent *);
+    void setFitImage(bool fit = true);
+
     
 public:
     explicit QLabelImage(QWidget *parent = 0);
-    void setOriginPixmap(QPixmap originPixmap);
+    QPixmap pixmap();
+    
     
 signals:
+    
+private slots:
+    void setPrivatePixmap(QPixmap pixmap);
     
 public slots:
     void showLoadingPixmap();
     void setEmpty();
-
+    void loadPixmap(QString path);
     
-protected:
-    void mouseMoveEvent(QMouseEvent *e);
-    
-    QPoint mapToPixmap(QPoint labelPoint);
-    
-    void resizeEvent(QResizeEvent *);
-    void mouseReleaseEvent(QMouseEvent *);
-    void mousePressEvent(QMouseEvent *);
+    /// override this method if u want
+    /// make some specific action to show image
+    virtual void showPixmap(QPixmap pixmap);
+    void showPixmap();
 };
 
 #endif // QLABELIMAGE_H

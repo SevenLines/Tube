@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     portalform.cpp \
     qlabelinfo.cpp \
     tubesdataloader.cpp \
-    qwidgethelper.cpp
+    qwidgethelper.cpp \
+    qlabelimagezoom.cpp
 
 HEADERS  += mainwindow.h \
     Enums.h \
@@ -43,7 +44,8 @@ HEADERS  += mainwindow.h \
     portalform.h \
     qlabelinfo.h \
     tubesdataloader.h \
-    qwidgethelper.h
+    qwidgethelper.h \
+    qlabelimagezoom.h
 
 FORMS    += mainwindow.ui \
     tubeform.ui \

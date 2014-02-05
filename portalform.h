@@ -16,12 +16,23 @@ public:
     explicit PortalForm(QWidget *parent = 0);
     
     void setPortal(Tube::Portal &portal);
+    
     Tube::Portal portal();
     
     ~PortalForm();
     
 private:
     Ui::PortalForm *ui;
+    bool mUseHelper;
+
+public slots:
+    void typeCutChanged(QString value);
+    void diameterChanged(double value);
+    void eyesCountChanged(int value);
+    
+    /// поставить на true если хочется использовать помощника в 
+    /// заполнении полей
+    void useHelper(bool use = true);
 };
 
 #endif // PORTALFORM_H

@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
             SLOT(openDir()));
     
     ui->lstTubes->setModel(&tubesModel);
-    
+    ui->wdgTubeInfo->setEnabled(false);
     
     loadIni();
 }
@@ -48,6 +48,7 @@ void MainWindow::openDir()
 void MainWindow::selectTube(QModelIndex index)
 {
     ui->wdgTubeInfo->setTube(tubesModel.data(index));
+    ui->wdgTubeInfo->setEnabled(true);
 }
 
 void MainWindow::saveIni()

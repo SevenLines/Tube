@@ -18,22 +18,11 @@ TubeForm::TubeForm(QWidget *parent) :
     connect(ui->btnSave, SIGNAL(clicked()),
             SLOT(save()));
     
-    foreach(QString t, Tube::conditions()) {
-        ui->cmbCondition->addItem(t);
-    }
-    
-    foreach(QString t, Tube::obstacles()) {
-        ui->cmbObstacle->addItem(t);
-    }
-    
-    foreach(QString t, Tube::schedules()) {
-        ui->cmbSchedule->addItem(t);
-    }
-    
-    foreach(QString t, Tube::waterCourses()) {
-        ui->cmbWatercourse->addItem(t);
-    }
-   
+
+    QWidgetHelper::fillComboBox(ui->cmbCondition, Tube::conditions());
+    QWidgetHelper::fillComboBox(ui->cmbObstacle, Tube::obstacles());
+    QWidgetHelper::fillComboBox(ui->cmbSchedule, Tube::schedules());
+    QWidgetHelper::fillComboBox(ui->cmbWatercourse, Tube::waterCourses());
 }
 
 TubeForm::~TubeForm()
@@ -182,6 +171,8 @@ void TubeForm::synchronizeWithTube(Tube t)
     ui->txtCustomDeffects->setPlainText(t.customDeffects);
     setDeffects(t.deffects);
     
+    ui->grpPortalOut->setChecked(t.in != t.out);
+    
     ui->wdgPortalIn->setPortal(t.in);
     ui->wdgPortalOut->setPortal(t.out);
 }
@@ -209,7 +200,7 @@ void TubeForm::setInImage()
 
 void TubeForm::setInImage(QString path)
 {
-    QLoadImageThread *thread = new QLoadImageThread(this);
+    /*QLoadImageThread *thread = new QLoadImageThread(this);
     thread->setPath(path);
     
     ui->lblImageIn->showLoadingPixmap();
@@ -219,13 +210,14 @@ void TubeForm::setInImage(QString path)
     connect(thread, SIGNAL(completed(QPixmap)),
             SLOT(setInImage(QPixmap)));
     
-    thread->start();
+    thread->start();*/
+    ui->lblImageIn->loadPixmap(path);
 }
 
 void TubeForm::setInImage(QPixmap pixmap)
 {
-    QMutexLocker mutex();  
-    setImage(pixmap, ui->lblImageIn);
+    /*QMutexLocker mutex();  
+    setImage(pixmap, ui->lblImageIn);*/
 }
 
 void TubeForm::setOutImage()
@@ -252,7 +244,7 @@ void TubeForm::setOutImage()
 
 void TubeForm::setOutImage(QString path)
 {
-    QLoadImageThread *thread = new QLoadImageThread(this);
+    /*QLoadImageThread *thread = new QLoadImageThread(this);
     thread->setPath(path);
 
     
@@ -262,20 +254,21 @@ void TubeForm::setOutImage(QString path)
     connect(thread, SIGNAL(completed(QPixmap)),
             SLOT(setOutImage(QPixmap)));
 
-    thread->start();
+    thread->start();*/
+    ui->lblImageOut->loadPixmap(path);
 }
 
 void TubeForm::setOutImage(QPixmap pixmap)
 {
-    QMutexLocker mutex();    
-    setImage(pixmap, ui->lblImageOut);
+    /*QMutexLocker mutex();    
+    setImage(pixmap, ui->lblImageOut);*/
 }
 
 void TubeForm::setImage(QPixmap &pixmap, QLabelImage *label)
 {
-    if (!pixmap.isNull()) {
+    /*if (!pixmap.isNull()) {
         label->setOriginPixmap(pixmap);
-    }
+    }*/
 }
 
 void TubeForm::save()
