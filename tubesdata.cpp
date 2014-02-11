@@ -114,7 +114,6 @@ QMap<int, int> TubesData::getPositionInfo(QString dirWithImages)
         QTextStream ts(&file);
         while(!ts.atEnd()) {
            QString line = ts.readLine();
-           qDebug() << line;
            if (regExp.indexIn(line) != -1) {
                int tubeNumber = regExp.cap(1).toInt();
                int tubePosition = regExp.cap(2).toInt();

@@ -20,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->btnReload, SIGNAL(clicked()),
             SLOT(openDir()));
     
+    connect(ui->actionTurnHelper, SIGNAL(triggered(bool)),
+            ui->wdgTubeInfo, SLOT(useHelper(bool)));
+    
     ui->lstTubes->setModel(&tubesModel);
     ui->wdgTubeInfo->setEnabled(false);
     
@@ -61,6 +64,10 @@ void MainWindow::saveIni()
         settings.setValue("fullscreen", isMaximized());
     settings.endGroup();
     
+    settings.beginGroup("Settings");
+        settings.setValue("useHelper", ui->actionTurnHelper->isChecked());
+    settings.endGroup();
+    
     settings.beginGroup("Files");
         settings.setValue("lastDir", lastDir);
     settings.endGroup();
@@ -80,9 +87,19 @@ void MainWindow::loadIni()
         }
     settings.endGroup();   
     
+    settings.beginGroup("Settings");
+        useHelper(settings.value("useHelper", true).toBool());
+    settings.endGroup();
+    
     settings.beginGroup("Files");
          openDir(settings.value("lastDir", QString()).toString());
-    settings.endGroup();
+         settings.endGroup();
+}
+
+void MainWindow::useHelper(bool use)
+{
+     ui->actionTurnHelper->setChecked(use);
+     ui->wdgTubeInfo->useHelper(use);
 }
 
 void MainWindow::on_action_OpenDir_triggered()

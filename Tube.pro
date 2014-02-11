@@ -16,6 +16,13 @@ TEMPLATE = app
 
 QMAKE_CXXFLAGS = -std=c++0x
 
+win32 {
+    # widows resource
+    RC_FILE = assets/windows_resource.rc
+
+    OTHER_FILES += \
+        assets/windows_resource.rc
+}
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -53,3 +60,4 @@ FORMS    += mainwindow.ui \
 
 RESOURCES += \
     main.qrc
+

@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="main.qrc">
+    <normaloff>:/images/assets/icon.png</normaloff>:/images/assets/icon.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <property name="leftMargin">
@@ -119,7 +123,14 @@
     <addaction name="separator"/>
     <addaction name="action_exit"/>
    </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Помощь</string>
+    </property>
+    <addaction name="actionTurnHelper"/>
+   </widget>
    <addaction name="menu"/>
+   <addaction name="menu_2"/>
   </widget>
   <action name="action_OpenDir">
    <property name="text">
@@ -137,21 +148,34 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
+  <action name="actionTurnHelper">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Включить помощник</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+H</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
+  <customwidget>
+   <class>QLabelInfo</class>
+   <extends>QLabel</extends>
+   <header>qlabelinfo.h</header>
+  </customwidget>
   <customwidget>
    <class>TubeForm</class>
    <extends>QWidget</extends>
    <header>tubeform.h</header>
    <container>1</container>
   </customwidget>
-  <customwidget>
-   <class>QLabelInfo</class>
-   <extends>QLabel</extends>
-   <header>qlabelinfo.h</header>
-  </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="main.qrc"/>
+ </resources>
  <connections/>
 </ui>

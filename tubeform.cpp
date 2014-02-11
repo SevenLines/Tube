@@ -200,25 +200,9 @@ void TubeForm::setInImage()
 
 void TubeForm::setInImage(QString path)
 {
-    /*QLoadImageThread *thread = new QLoadImageThread(this);
-    thread->setPath(path);
-    
-    ui->lblImageIn->showLoadingPixmap();
-    
-    connect(thread, SIGNAL(finished()),
-            thread, SLOT(deleteLater()));
-    connect(thread, SIGNAL(completed(QPixmap)),
-            SLOT(setInImage(QPixmap)));
-    
-    thread->start();*/
     ui->lblImageIn->loadPixmap(path);
 }
 
-void TubeForm::setInImage(QPixmap pixmap)
-{
-    /*QMutexLocker mutex();  
-    setImage(pixmap, ui->lblImageIn);*/
-}
 
 void TubeForm::setOutImage()
 {
@@ -244,37 +228,20 @@ void TubeForm::setOutImage()
 
 void TubeForm::setOutImage(QString path)
 {
-    /*QLoadImageThread *thread = new QLoadImageThread(this);
-    thread->setPath(path);
-
-    
-    ui->lblImageOut->showLoadingPixmap();
-    connect(thread, SIGNAL(finished()),
-            thread, SLOT(deleteLater()));
-    connect(thread, SIGNAL(completed(QPixmap)),
-            SLOT(setOutImage(QPixmap)));
-
-    thread->start();*/
     ui->lblImageOut->loadPixmap(path);
 }
 
-void TubeForm::setOutImage(QPixmap pixmap)
-{
-    /*QMutexLocker mutex();    
-    setImage(pixmap, ui->lblImageOut);*/
-}
-
-void TubeForm::setImage(QPixmap &pixmap, QLabelImage *label)
-{
-    /*if (!pixmap.isNull()) {
-        label->setOriginPixmap(pixmap);
-    }*/
-}
 
 void TubeForm::save()
 {
     ui->lblInfo->showProcess(); // fake animation
     getTube().writeToFile(tube.xmlPath);
+}
+
+void TubeForm::useHelper(bool use)
+{
+    ui->wdgPortalIn->useHelper(use);
+    ui->wdgPortalOut->useHelper(use);
 }
 
 

@@ -9,6 +9,8 @@ PortalForm::PortalForm(QWidget *parent) :
 {
     ui->setupUi(this);
     
+    setPortalWidthAdd(0.2);
+    
     // fill combos
     QWidgetHelper::fillComboBox(ui->cmbTypeCut, Tube::portalCuts());
     QWidgetHelper::fillComboBox(ui->cmbMaterialBody, Tube::materials());
@@ -42,10 +44,8 @@ void PortalForm::setPortal(Tube::Portal &portal)
     ui->cmbTypeCut->setCurrentText("");
     QWidgetHelper::setEditText(ui->cmbTypeCut, portal.typeCut);
     
-    ui->spnDiameter->setValue(portal.size.diameter);
-    
+    ui->spnDiameter->setValue(portal.size.diameter);  
     ui->spnHeight->setValue(portal.size.height);
-
     ui->spnWidth->setValue(portal.size.width);
     
     ui->spnEyesCount->setValue(portal.eyesCount);
@@ -103,7 +103,7 @@ void PortalForm::diameterChanged(double value)
         return;
     
     int eyesCount = ui->spnEyesCount->value();
-    ui->spnWidthPortal->setValue( eyesCount * (value + 0.1f) );
+    ui->spnWidthPortal->setValue( eyesCount * (value + mPortalWidthAdd) );
 }
 
 void PortalForm::eyesCountChanged(int value)
@@ -114,6 +114,11 @@ void PortalForm::eyesCountChanged(int value)
     if (ui->spnWidth->isEnabled()) {
         diameterChanged(ui->spnWidth->value());
     }
+}
+
+void PortalForm::setPortalWidthAdd(double value)
+{
+    mPortalWidthAdd = value;
 }
 
 void PortalForm::useHelper(bool use)

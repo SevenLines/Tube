@@ -10,7 +10,7 @@
 
 Tube::Portal::Portal()
 {
-    widthPortal =  1.1;
+    widthPortal =  1.2;
     widthTrumpet = 0;
     eyesCount = 1;
     

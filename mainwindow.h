@@ -24,6 +24,7 @@ public slots:
     
     void saveIni();
     void loadIni();
+    void useHelper(bool use);
     
 private slots:
     void on_action_OpenDir_triggered();

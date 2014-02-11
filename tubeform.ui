@@ -182,7 +182,7 @@
             </property>
             <layout class="QGridLayout" name="gridLayout_5">
              <property name="leftMargin">
-              <number>0</number>
+              <number>2</number>
              </property>
              <property name="topMargin">
               <number>2</number>
@@ -221,7 +221,7 @@
                  <number>0</number>
                 </property>
                 <property name="topMargin">
-                 <number>0</number>
+                 <number>9</number>
                 </property>
                 <property name="rightMargin">
                  <number>0</number>
@@ -637,8 +637,8 @@ background:rgb(38, 106, 208);</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>424</width>
-                  <height>666</height>
+                  <width>328</width>
+                  <height>540</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_10">

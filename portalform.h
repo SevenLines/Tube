@@ -24,11 +24,13 @@ public:
 private:
     Ui::PortalForm *ui;
     bool mUseHelper;
+    float mPortalWidthAdd;
 
 public slots:
     void typeCutChanged(QString value);
     void diameterChanged(double value);
     void eyesCountChanged(int value);
+    void setPortalWidthAdd(double value);
     
     /// поставить на true если хочется использовать помощника в 
     /// заполнении полей
