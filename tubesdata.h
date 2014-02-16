@@ -17,6 +17,7 @@ public:
         int number; // номер трубы
         int length; // длина трубы в метрах
         int position;
+        bool ready;
         
         QString xmlPath;
         /// изображения входного отверстия
@@ -24,7 +25,7 @@ public:
         /// изображения выходного отверстия
         QList<QString> imagesListOut;
         
-        TubeEx() : length(-1), number(-1), position(-1) {}
+        TubeEx() : length(-1), number(-1), position(-1), ready(false) {}
     };
     
 public:
@@ -45,7 +46,9 @@ public:
     
     /// возвращает трубу
     const TubeEx * operator()(int tubeNumber) const;
+    
     TubeEx * operator()(int tubeNumber);
+ 
     
 private:
     QString xmlFolderName;

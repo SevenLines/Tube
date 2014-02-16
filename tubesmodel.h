@@ -10,6 +10,8 @@
 class TubesModel : public QAbstractListModel
 {
     Q_OBJECT
+    
+    int activeRow;
 public:
     explicit TubesModel(QObject *parent = 0);
     TubesDataLoader tubesDataLoader;
@@ -31,6 +33,10 @@ public:
 public slots:
     void loadFromDir(QString imageDirPath);
     void resetModel();
+
+    void setActive(int row);  
+    void updateAcitve();
+    
 signals:
     void afterLoad();
 

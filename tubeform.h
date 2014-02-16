@@ -36,6 +36,9 @@ public slots:
     void save();
     void useHelper(bool use);
     
+signals:
+    void saved(TubesData::TubeEx &tube);
+    
 private:
     Ui::TubeForm *ui;
 

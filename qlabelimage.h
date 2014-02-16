@@ -16,7 +16,7 @@ protected:
     void showPixmapProp();
     void resizeEvent(QResizeEvent *);
     void setFitImage(bool fit = true);
-
+    
     
 public:
     explicit QLabelImage(QWidget *parent = 0);
@@ -32,6 +32,7 @@ public slots:
     void showLoadingPixmap();
     void setEmpty();
     void loadPixmap(QString path);
+    void loadPixmap(QPixmap pixmap);
     
     /// override this method if u want
     /// make some specific action to show image

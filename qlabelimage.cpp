@@ -59,9 +59,13 @@ void QLabelImage::loadPixmap(QString path)
     imageLoader->start();
 }
 
+void QLabelImage::loadPixmap(QPixmap pixmap)
+{
+    setPrivatePixmap(pixmap);    
+}
+
 void QLabelImage::showPixmap(QPixmap pixmap)
 {
-//    QMute
     loadingMovie->stop();
     if (mFitImage) {
         showPixmapProp();

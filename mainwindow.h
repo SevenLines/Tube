@@ -28,8 +28,8 @@ public slots:
     
 private slots:
     void on_action_OpenDir_triggered();
-    
     void on_action_exit_triggered();
+    void updateTube(TubesData::TubeEx& tube);
     
 private:
     Ui::MainWindow *ui;

@@ -6,6 +6,7 @@
 TubesModel::TubesModel(QObject *parent) :
     QAbstractListModel(parent)
 {
+    activeRow = -1;
 }
 
 
@@ -28,9 +29,13 @@ QVariant TubesModel::data(const QModelIndex &index, int role) const
     
     switch(role) {
     case Qt::DisplayRole:
-        return tubesDataLoader.tubesData[index.row()].number;
+        if (index.row() == activeRow) {
+            return tr("%1 <<<").arg(tubesDataLoader.tubesData[index.row()].number);
+        } else {
+            return tubesDataLoader.tubesData[index.row()].number;
+        }
     case Qt::CheckStateRole:
-        return QFile(tubesDataLoader.tubesData[index.row()].xmlPath).exists();
+        return tubesDataLoader.tubesData[index.row()].ready;
     }
     
     return QVariant();
@@ -75,6 +80,21 @@ void TubesModel::resetModel()
 {
     beginResetModel();
     endResetModel();
+}
+
+void TubesModel::setActive(int row)
+{
+    beginResetModel();
+    activeRow = row;
+    endResetModel();
+}
+
+void TubesModel::updateAcitve()
+{
+    beginResetModel();
+    TubesData::TubeEx &tube = tubesDataLoader.tubesData[activeRow];
+    tube.ready = QFile(tube.xmlPath).exists();
+    endResetModel();  
 }
 
 

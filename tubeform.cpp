@@ -236,6 +236,7 @@ void TubeForm::save()
 {
     ui->lblInfo->showProcess(); // fake animation
     getTube().writeToFile(tube.xmlPath);
+    emit saved(tube);
 }
 
 void TubeForm::useHelper(bool use)

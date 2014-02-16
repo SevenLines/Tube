@@ -97,6 +97,10 @@ void TubesData::loadFromDir(QString dirWithImages)
         
         tubes[i].xmlPath = xmlDir.filePath(QString("%1.xml")
                                            .arg(tubes[i].number, 3, 10, QLatin1Char('0')));
+        
+        // set ready state
+        tubes[i].ready = QFile(tubes[i].xmlPath).exists();
+        
         if (verbose) qDebug() << tubes[i].xmlPath;
         if (verbose) qDebug() << "-=-=-=-";
     }
@@ -130,7 +134,7 @@ QMap<int, qreal> TubesData::getLengthInfo(QString dirWithImages)
 {
     QMap<int, qreal> length;
     QFile file(dirWithImages + "/" + "length.txt");
-    QRegExp regExp("(\d+)\s+(.+)");
+    QRegExp regExp("(\\d+)\\s+(\\d+)");
     if (file.open(QIODevice::ReadOnly)) {
         QTextStream ts(&file);
         while(!ts.atEnd()) {
@@ -143,6 +147,7 @@ QMap<int, qreal> TubesData::getLengthInfo(QString dirWithImages)
                if (result) {
                 length[tubeNumber] = tubeLength;
                }
+               
            }
         }
         

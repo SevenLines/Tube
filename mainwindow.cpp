@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     
-    connect(ui->lstTubes, SIGNAL(doubleClicked(QModelIndex)),
+    connect(ui->lstTubes, SIGNAL(activated(QModelIndex)),
             SLOT(selectTube(QModelIndex)));
     connect(&tubesModel, SIGNAL(afterLoad()),
             ui->lblProcess, SLOT(hideProcess()));
@@ -22,6 +22,9 @@ MainWindow::MainWindow(QWidget *parent) :
     
     connect(ui->actionTurnHelper, SIGNAL(triggered(bool)),
             ui->wdgTubeInfo, SLOT(useHelper(bool)));
+    connect(ui->wdgTubeInfo, SIGNAL(saved(TubesData::TubeEx&)),
+            SLOT(updateTube(TubesData::TubeEx&)));
+            
     
     ui->lstTubes->setModel(&tubesModel);
     ui->wdgTubeInfo->setEnabled(false);
@@ -50,6 +53,7 @@ void MainWindow::openDir()
 
 void MainWindow::selectTube(QModelIndex index)
 {
+    tubesModel.setActive(index.row());
     ui->wdgTubeInfo->setTube(tubesModel.data(index));
     ui->wdgTubeInfo->setEnabled(true);
 }
@@ -114,4 +118,9 @@ void MainWindow::on_action_OpenDir_triggered()
 void MainWindow::on_action_exit_triggered()
 {
     close();
+}
+
+void MainWindow::updateTube(TubesData::TubeEx &tube)
+{
+    tubesModel.updateAcitve();
 }

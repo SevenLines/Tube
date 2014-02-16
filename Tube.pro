@@ -8,7 +8,7 @@ QT       += core gui xml
 
 MOC_DIR = moc
 OBJECTS_DIR = obj
-
+ 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Tube
