@@ -92,6 +92,8 @@ public:
     /// входной / выходной портал
     Portal in, out; 
     
+    QString SQLInsertScript();
+    
 public:
     void writeToXml(QXmlStreamWriter *xml);
     void writeToFile(QString path);

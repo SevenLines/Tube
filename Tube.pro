@@ -37,7 +37,8 @@ SOURCES += main.cpp\
     qlabelinfo.cpp \
     tubesdataloader.cpp \
     qwidgethelper.cpp \
-    qlabelimagezoom.cpp
+    qlabelimagezoom.cpp \
+    databaseroadinfodialog.cpp
 
 HEADERS  += mainwindow.h \
     Enums.h \
@@ -52,11 +53,13 @@ HEADERS  += mainwindow.h \
     qlabelinfo.h \
     tubesdataloader.h \
     qwidgethelper.h \
-    qlabelimagezoom.h
+    qlabelimagezoom.h \
+    databaseroadinfodialog.h
 
 FORMS    += mainwindow.ui \
     tubeform.ui \
-    portalform.ui
+    portalform.ui \
+    databaseroadinfodialog.ui
 
 RESOURCES += \
     main.qrc

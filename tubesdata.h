@@ -7,6 +7,20 @@
 
 #include "tube.h"
 
+struct GenerateScriptOptions
+{
+    QString filePath;
+    int NumDataSource;
+    int NumRoad;
+    bool excludeZeroPosition;
+    
+    GenerateScriptOptions(QString filePath, int NumDataSource, int NumRoad) {
+        this->filePath = filePath;
+        this->NumDataSource = NumDataSource;
+        this->NumRoad = NumRoad;
+    }
+};
+
 class TubesData : public QObject
 {
 Q_OBJECT
@@ -26,6 +40,8 @@ public:
         QList<QString> imagesListOut;
         
         TubeEx() : length(-1), number(-1), position(-1), ready(false) {}
+        
+        QString bindImagesScript(int NumRoad, int NumDataSource);
     };
     
 public:
@@ -50,9 +66,11 @@ public:
     TubeEx * operator()(int tubeNumber);
  
     
+    void generateSaveScript(GenerateScriptOptions &options);
 private:
     QString xmlFolderName;
     QString imageNameTemplate;
+    QString lastImageDir;
     
     const TubeEx *getTubeWithNumber(int num) const;
     TubeEx *getTubeWithNumber(int num);

@@ -6,6 +6,9 @@
 
 #include <QSettings>
 #include <QFileDialog>
+#include <QMessageBox>
+#include <QProcess>
+#include <QDesktopServices>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -24,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->wdgTubeInfo, SLOT(useHelper(bool)));
     connect(ui->wdgTubeInfo, SIGNAL(saved(TubesData::TubeEx&)),
             SLOT(updateTube(TubesData::TubeEx&)));
+    
+    connect(ui->actionGenerateSaveScript, SIGNAL(triggered()),
+            SLOT(generateSaveScript()));
             
     
     ui->lstTubes->setModel(&tubesModel);
@@ -58,6 +64,33 @@ void MainWindow::selectTube(QModelIndex index)
     ui->wdgTubeInfo->setEnabled(true);
 }
 
+void MainWindow::generateSaveScript()
+{
+    QString path = QFileDialog::getSaveFileName(this, 
+                                 "Select script path", 
+                                 lastDir, 
+                                 "SQL script file (*.sql)");
+    if (path.isNull()) {
+        return;
+    }
+    
+    if (!path.endsWith(".sql")) path.append(".sql");
+    
+    if (databaseRoadInfoDialog.exec()!=QDialog::Accepted) {
+        return;
+    }
+    
+    GenerateScriptOptions options(path,
+                                  databaseRoadInfoDialog.NumDataSource(),
+                                  databaseRoadInfoDialog.NumRoad() );
+    tubesModel.generateSaveScript(options);
+    
+    if (QMessageBox::question(this, "Потдверждение", "Открыть сгенерированный файл?") != QMessageBox::Yes) {
+        return;
+    }
+    QDesktopServices::openUrl("file://"+path);
+}
+
 void MainWindow::saveIni()
 {
     QSettings settings("config.ini", QSettings::IniFormat);
@@ -75,6 +108,8 @@ void MainWindow::saveIni()
     settings.beginGroup("Files");
         settings.setValue("lastDir", lastDir);
     settings.endGroup();
+    
+    databaseRoadInfoDialog.saveIni(&settings);
 }
 
 void MainWindow::loadIni()
@@ -97,7 +132,9 @@ void MainWindow::loadIni()
     
     settings.beginGroup("Files");
          openDir(settings.value("lastDir", QString()).toString());
-         settings.endGroup();
+    settings.endGroup();
+         
+    databaseRoadInfoDialog.loadIni(&settings);
 }
 
 void MainWindow::useHelper(bool use)
@@ -124,3 +161,4 @@ void MainWindow::updateTube(TubesData::TubeEx &tube)
 {
     tubesModel.updateAcitve();
 }
+

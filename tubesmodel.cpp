@@ -97,4 +97,10 @@ void TubesModel::updateAcitve()
     endResetModel();  
 }
 
+void TubesModel::generateSaveScript(GenerateScriptOptions &options)
+{
+    options.excludeZeroPosition = true;
+    tubesDataLoader.tubesData.generateSaveScript(options);
+}
+
 

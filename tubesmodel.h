@@ -36,6 +36,7 @@ public slots:
 
     void setActive(int row);  
     void updateAcitve();
+    void generateSaveScript(GenerateScriptOptions &options);
     
 signals:
     void afterLoad();

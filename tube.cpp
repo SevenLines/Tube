@@ -2,7 +2,7 @@
 #include "xmlutils.h"
 #include <QFile>
 #include <QDebug>
-
+#include <math.h>
 
 /// /// /// /// /// /// /// /// /// /// /// /// /// ///
 /// PORTAL CLASS
@@ -176,6 +176,60 @@ Tube::Tube()
     schedule = schedules()[1];
     
     skew = 0;
+}
+
+QString Tube::SQLInsertScript()
+{
+    QString d = ", ";
+    
+    QString scriptHead = "INSERT ListTubes("
+            "DataSource,"
+            "NumRoad,"
+            "NumTypeTubeCuttingShape,"
+            "NumTypeTubeWorkMode,"
+            "Displacement,"
+            "Extent,"
+            "NumPlace,"
+            "NumMaterial,"
+            "HoleSize,"
+//            "NumTypeStrengthening,"
+            "TubeScheme,"
+            "NumCondition,"
+            "NumDataSource,"
+            "PointsCount,"
+            "NumReason) ";
+    
+    QString holeSize = QString::number(
+                in.size.diameter==0?in.size.width:in.size.diameter,'g', 1).replace(',','.');
+    QString cnd = condition=="отличное"?"2322":
+                        condition=="хорошее"?"2321":
+                        condition=="удовл."?"2320":
+                        condition=="плохое"?"2319":
+                        condition=="аварийное"?"2323":"-1";
+    
+    QString scriptBottom = "VALUES("
+            "@NumDataSource," // NumDataSource 
+            "@NumRoad" + d //NumRoad
+            + QString(in.typeCut=="круглое"?"159":"160") + d //NumTypeTubeCuttingShape 
+            + QString(schedule=="напорный"?"185":"187") + d // NumTypeTubeWorkMode
+            + QString::number(position) + d // Displacement
+            + QString::number(fullLength).replace(',','.') + d // Extent
+            + "262" + d // NumPlace -- на дороге
+            + QString::number(in.materialBody=="железобетон"?2293:2292) + d // NumMaterial
+            + holeSize + d // HoleSize
+//            + QString.number() // NumTypeStrengthening
+            + "'" + QString::number(in.eyesCount) + "x" + holeSize +"'" + d //TubeScheme
+            + cnd + d// NumCondition
+            + "@NumDataSource" + d // NumDataSource
+            + "0" + d // PointsCount
+            + "2385124" + ")"; //NumReason
+    
+    // little check for script correctness
+    int headCommas = scriptHead.count(',');
+    int bottomCommas = scriptBottom.count(',');
+    Q_ASSERT(headCommas == bottomCommas);
+    
+    return scriptHead + "\n" + scriptBottom;
 }
 
 void Tube::writeToXml(QXmlStreamWriter *xml)

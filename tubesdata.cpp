@@ -25,6 +25,7 @@ TubesData::TubesData(QString dirWithImages)
 void TubesData::loadFromDir(QString dirWithImages)
 {
     QDir dir(dirWithImages);
+    lastImageDir = dirWithImages;
     
     bool verbose = false;
     
@@ -181,6 +182,62 @@ TubesData::TubeEx * TubesData::operator()(int tubeNumber)
     return getTubeWithNumber(tubeNumber);
 }
 
+void TubesData::generateSaveScript(GenerateScriptOptions &options)
+{
+    QString script;
+    
+//    auto tubesLengthInfo = getLengthInfo(dirWithImages);
+    auto tubePositionInfo = getPositionInfo(lastImageDir);
+    
+    script = "DECLARE @NumDataSource int, @NumRoad int, @lastTube int";
+    script += "\nSELECT @NumDataSource = " + QString::number(options.NumDataSource) +
+                     ", @NumRoad = " + QString::number(options.NumRoad);
+    foreach(TubeEx tube, tubes) {
+        if (QFile(tube.xmlPath).exists()) {
+            // load tube info
+            Tube t = Tube::readFromFile(tube.xmlPath);
+             
+            script += "\n--труба №" + QString::number(tube.number);
+            
+            // load position info from external file if present
+            if (t.position == 0 && tube.position >=0) {
+                t.position = tube.position;
+                // update tube xml file with new position
+                t.writeToFile(tube.xmlPath);
+            }           
+            
+            if (t.fullLength <= 0) {
+                if (tube.length > 0) {
+                    t.fullLength = tube.length;
+                } else {
+                    t.fullLength = 0;
+                }
+                t.writeToFile(tube.xmlPath);
+            }
+            
+            // skip tubes with zero (undefined) position
+            if (t.position <= 0 && options.excludeZeroPosition)  {
+                script += "\n-- >> пропускаю так как отсутствует информация о дислокации";
+                script += "\n-- *-*-*-*-*-*-*-*-* -- \n";
+                continue;         
+            }
+            
+            script += "\n" + t.SQLInsertScript();
+            script += "\n" + tube.bindImagesScript(options.NumRoad, options.NumDataSource);
+            script += "\n-- *-*-*-*-*-*-*-*-* -- \n";
+            
+        }
+    }
+    
+    QFile file(options.filePath);
+    if (file.open(QFile::WriteOnly)) {
+        QTextStream ts(&file);
+        ts << script;
+        
+        file.close();
+    }
+}
+
 const TubesData::TubeEx * TubesData::getTubeWithNumber(int num) const
 {
     return getTubeWithNumber(num);
@@ -217,4 +274,64 @@ void TubesData::addTube(int num, QString inOut, QString path)
     if (tube == &newTube) {
         tubes.append(newTube);
     }
+}
+
+QString tubeValuesString(QString tubeName, QString inOut, QString path, int position, int NumRoad, int NumDataSource)
+{
+    QString d = ", ";
+    return "VALUES ("
+            "'" + tubeName + "'" + d // doc_name
+            + "@lastTube" + d // doc_object
+            + "'" + path + "'" + d // doc_path
+            + QString::number(position) + d // doc_StartPos
+            + QString::number(position) + d // doc_EndPos
+            + "3" + d // doc_Type
+            + "42"+ d // doc_celement
+            + "914" + d // doc_organ
+            + "914" + d // doc_isp
+            + "-17" + d // doc_operator
+            + "'" + inOut +"'" + d // doc_annot
+            + "@NumDataRoad" + d // doc_road
+            + "0" + d
+            + "@NumDataSource" + ")";    
+}
+
+QString TubesData::TubeEx::bindImagesScript(int NumRoad, int NumDataSource)
+{   
+    QString d = ", ";
+    
+    QString scriptHead = "INSERT RDocuments("
+            "doc_name,"
+            "doc_object,"
+            "doc_path,"
+            "doc_StartPos,"
+            "doc_EndPos,"
+            "doc_Type,"
+            "doc_celement,"
+            "doc_organ,"
+            "doc_isp,"
+            "doc_operator,"
+            "doc_annot,"
+            "doc_road,"
+            "doc_serv,"
+            "NumDataSource)";
+    
+    QString script = "SET @lastTube = @@identity";
+    QString tubeName;
+    foreach(QString path, imagesListIn) {
+        tubeName = QFileInfo(path).baseName();
+        QString scriptBottom = tubeValuesString(tubeName, "вход", path, position, NumRoad, NumDataSource);
+        Q_ASSERT(scriptBottom.count(',') == scriptHead.count(','));
+        script += "\n" + scriptHead + "\n" + scriptBottom;
+    }
+    
+    foreach(QString path, imagesListOut) {
+        tubeName = QFileInfo(path).baseName();
+        QString scriptBottom = tubeValuesString(tubeName, "выход", path, position, NumRoad, NumDataSource);
+        Q_ASSERT(scriptBottom.count(',') == scriptHead.count(','));
+        script += "\n" + scriptHead + "\n" + scriptBottom;
+    }
+    
+    
+    return script;
 }
