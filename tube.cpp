@@ -197,7 +197,8 @@ QString Tube::SQLInsertScript()
             "NumCondition,"
             "NumDataSource,"
             "PointsCount,"
-            "NumReason) ";
+            "NumReason,"
+            "Comment) ";
     
     QString holeSize = QString::number(
                 in.size.diameter==0?in.size.width:in.size.diameter,'g', 1).replace(',','.');
@@ -206,6 +207,8 @@ QString Tube::SQLInsertScript()
                         condition=="удовл."?"2320":
                         condition=="плохое"?"2319":
                         condition=="аварийное"?"2323":"-1";
+    
+    QString comment = "'" + obstacle + " " + waterCourse + "'";
     
     QString scriptBottom = "VALUES("
             "@NumDataSource," // NumDataSource 
@@ -222,7 +225,9 @@ QString Tube::SQLInsertScript()
             + cnd + d// NumCondition
             + "@NumDataSource" + d // NumDataSource
             + "0" + d // PointsCount
-            + "2385124" + ")"; //NumReason
+            + "2385124" + d
+            + comment // Comment
+            + ")"; //NumReason
     
     // little check for script correctness
     int headCommas = scriptHead.count(',');

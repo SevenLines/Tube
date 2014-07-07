@@ -70,6 +70,7 @@ public:
 private:
     QString xmlFolderName;
     QString imageNameTemplate;
+    QString imageNameTemplateDirs;
     QString lastImageDir;
     
     const TubeEx *getTubeWithNumber(int num) const;

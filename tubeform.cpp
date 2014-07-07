@@ -23,6 +23,7 @@ TubeForm::TubeForm(QWidget *parent) :
     QWidgetHelper::fillComboBox(ui->cmbObstacle, Tube::obstacles());
     QWidgetHelper::fillComboBox(ui->cmbSchedule, Tube::schedules());
     QWidgetHelper::fillComboBox(ui->cmbWatercourse, Tube::waterCourses());
+    setImagesOrder();
 }
 
 TubeForm::~TubeForm()
@@ -57,7 +58,8 @@ void TubeForm::setTube(TubesData::TubeEx &tube)
     
     QAction *firstAction = 0;
     // fiil lblImageIn contex menu actions
-    foreach(QString file, tube.imagesListIn) {
+    for (int i=0;i<tube.imagesListIn.count(); ++i) {
+        QString file = fImagesOrder ? tube.imagesListIn[i]: tube.imagesListIn[tube.imagesListIn.count()-i-1];
         QAction *action = new QAction(QFileInfo(file).fileName(), this);
         action->setData(file);
         action->setCheckable(true);
@@ -77,7 +79,8 @@ void TubeForm::setTube(TubesData::TubeEx &tube)
     
     // fiil lblImageOut contex menu actions
     firstAction = 0;
-    foreach(QString file, tube.imagesListOut) {
+    for (int i=0;i<tube.imagesListOut.count(); ++i) {
+        QString file = fImagesOrder ? tube.imagesListOut[i]: tube.imagesListOut[tube.imagesListOut.count()-i-1];
         QAction *action = new QAction(QFileInfo(file).fileName(), this);
         action->setData(file);
         action->setCheckable(true);
@@ -229,6 +232,11 @@ void TubeForm::setOutImage()
 void TubeForm::setOutImage(QString path)
 {
     ui->lblImageOut->loadPixmap(path);
+}
+
+void TubeForm::setImagesOrder(bool asc)
+{
+    fImagesOrder = asc;
 }
 
 

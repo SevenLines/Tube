@@ -14,6 +14,7 @@ class TubeForm : public QWidget
 {
     Q_OBJECT
     TubesData::TubeEx tube;
+    bool fImagesOrder;
     
 public:
     explicit TubeForm(QWidget *parent = 0);
@@ -32,6 +33,7 @@ public slots:
     void setInImage(QString path);
     void setOutImage();
     void setOutImage(QString path);
+    void setImagesOrder(bool asc=true);
     
     void save();
     void useHelper(bool use);

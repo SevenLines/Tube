@@ -115,7 +115,7 @@
      <x>0</x>
      <y>0</y>
      <width>403</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -131,12 +131,14 @@
      <string>Помощь</string>
     </property>
     <addaction name="actionTurnHelper"/>
+    <addaction name="chkAscImagesOrder"/>
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
      <string>Скрипты</string>
     </property>
     <addaction name="actionGenerateSaveScript"/>
+    <addaction name="actionReport"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -175,6 +177,19 @@
    </property>
    <property name="toolTip">
     <string>Сгенерировать скрипт сохранения</string>
+   </property>
+  </action>
+  <action name="chkAscImagesOrder">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Картинки по возрастанию</string>
+   </property>
+  </action>
+  <action name="actionReport">
+   <property name="text">
+    <string>Отчет</string>
    </property>
   </action>
  </widget>

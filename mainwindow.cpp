@@ -3,12 +3,14 @@
 
 #include "tubesmodel.h"
 #include "tubesdata.h"
+#include "dialogreport.h"
 
 #include <QSettings>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QProcess>
 #include <QDesktopServices>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -31,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionGenerateSaveScript, SIGNAL(triggered()),
             SLOT(generateSaveScript()));
             
+    connect(ui->actionReport, SIGNAL(triggered()),
+            SLOT(report()));
     
     ui->lstTubes->setModel(&tubesModel);
     ui->wdgTubeInfo->setEnabled(false);
@@ -60,6 +64,7 @@ void MainWindow::openDir()
 void MainWindow::selectTube(QModelIndex index)
 {
     tubesModel.setActive(index.row());
+    ui->wdgTubeInfo->setImagesOrder(ui->chkAscImagesOrder->isChecked());
     ui->wdgTubeInfo->setTube(tubesModel.data(index));
     ui->wdgTubeInfo->setEnabled(true);
 }
@@ -88,7 +93,8 @@ void MainWindow::generateSaveScript()
     if (QMessageBox::question(this, "Потдверждение", "Открыть сгенерированный файл?") != QMessageBox::Yes) {
         return;
     }
-    QDesktopServices::openUrl("file://"+path);
+
+    QDesktopServices::openUrl("file:///"+path);
 }
 
 void MainWindow::saveIni()
@@ -103,6 +109,7 @@ void MainWindow::saveIni()
     
     settings.beginGroup("Settings");
         settings.setValue("useHelper", ui->actionTurnHelper->isChecked());
+        settings.setValue("imagesOrder", ui->chkAscImagesOrder->isChecked());
     settings.endGroup();
     
     settings.beginGroup("Files");
@@ -128,6 +135,7 @@ void MainWindow::loadIni()
     
     settings.beginGroup("Settings");
         useHelper(settings.value("useHelper", true).toBool());
+        ui->chkAscImagesOrder->setChecked(settings.value("imagesOrder", true).toBool());
     settings.endGroup();
     
     settings.beginGroup("Files");
@@ -150,6 +158,58 @@ void MainWindow::on_action_OpenDir_triggered()
         return;
     
     openDir(dirPath);
+}
+
+void MainWindow::report()
+{
+    dialogReport.setTubeList(&tubesModel.tubesDataLoader.tubesData.tubes);
+    if (dialogReport.exec() != QDialog::Accepted) {
+        return;
+    }
+    
+    
+    
+//    QString format = dialogReport.format(); 
+    
+//    foreach(TubesData::TubeEx tube, tubesModel.tubesDataLoader.tubesData.tubes) {
+//        Tube t = Tube::readFromFile(tube.xmlPath);
+//        QString out  = format;
+        
+//        out.replace("{number}", QString::number(t.number==-1?tube.number:t.number));
+//        out.replace("{position}", QString(t.position));
+//        out.replace("{obstacle}", QString(t.obstacle));
+//        out.replace("{waterCourse}", QString(t.waterCourse));
+//        out.replace("{schedule}", QString(t.schedule));
+//        out.replace("{fullLength}", QString::number(t.fullLength));
+//        out.replace("{moundHeight}", QString::number(t.moundHeight));
+//        out.replace("{skew}", QString::number(t.skew));
+        
+//        out.replace("{in.widthPortal}", QString::number(t.in.widthPortal));
+//        out.replace("{in.widthTrumpet}", QString::number(t.in.widthTrumpet));
+//        out.replace("{in.thickness}", QString::number(t.in.thickness));
+//        out.replace("{in.materialPortal}", QString(t.in.materialPortal));
+//        out.replace("{in.materialBody}", QString(t.in.materialBody));
+//        out.replace("{in.typeCut}", QString(t.in.typeCut));
+//        out.replace("{in.type}", QString(t.in.type));
+//        out.replace("{in.diameter}", QString::number(t.in.size.diameter));
+//        out.replace("{in.height}", QString::number(t.in.size.height));
+//        out.replace("{in.width}", QString::number(t.in.size.width));
+        
+//        out.replace("{out.widthPortal}", QString::number(t.out.widthPortal));
+//        out.replace("{out.widthTrumpet}", QString::number(t.out.widthTrumpet));
+//        out.replace("{out.thickness}", QString::number(t.out.thickness));
+//        out.replace("{out.materialPortal}", QString(t.out.materialPortal));
+//        out.replace("{out.materialBody}", QString(t.out.materialBody));
+//        out.replace("{out.typeCut}", QString(t.out.typeCut));
+//        out.replace("{out.type}", QString(t.out.type));
+//        out.replace("{out.diameter}", QString::number(t.out.size.diameter));
+//        out.replace("{out.height}", QString::number(t.out.size.height));
+//        out.replace("{out.width}", QString::number(t.out.size.width));
+        
+//        out.replace(QRegularExpression("{.*?}"), "");
+        
+//        qDebug() << out;
+//    }
 }
 
 void MainWindow::on_action_exit_triggered()

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "databaseroadinfodialog.h"
+#include "dialogreport.h"
 #include "tubesmodel.h"
 
 namespace Ui {
@@ -19,11 +20,13 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     
+    
 public slots:
     void openDir(QString dirPath);
     void openDir();
     void selectTube(QModelIndex index);
     void generateSaveScript();
+    void report();
     
     void saveIni();
     void loadIni();
@@ -38,6 +41,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     TubesModel tubesModel;
+    DialogReport dialogReport;
     
     
 };

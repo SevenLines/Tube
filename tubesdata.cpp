@@ -16,6 +16,7 @@ TubesData::TubesData(QString dirWithImages)
 {
     xmlFolderName = "xml";
     imageNameTemplate = "(\\d+)_(in|out)_(\\d+)";
+    imageNameTemplateDirs = "(in|out)_(\\d+)"; // for files without tube number which lay within numbered dirs
     
     if (!dirWithImages.isNull()) {
         loadFromDir(dirWithImages);
@@ -34,19 +35,33 @@ void TubesData::loadFromDir(QString dirWithImages)
     
     emit aboutToLoadFromDir();
     
+    // файлы которые просто лежат в папке
     QFileInfoList files = dir.entryInfoList(QDir::Files, QDir::Name);
+    // файлы которые лежат в нумерованных папках
+    bool isInteger;
+    foreach(QFileInfo d, dir.entryInfoList(QDir::Dirs, QDir::Name)) {
+        d.baseName().toInt(&isInteger);
+        if( isInteger ) { // убедимся что имя папки -- число
+            files.append(QDir(d.filePath()).entryInfoList(QDir::Files, QDir::Name));
+        }
+    }
     
     QRegExp regExp(imageNameTemplate);
+    QRegExp regExpDir(imageNameTemplateDirs);
     
     tubes.clear();
     
     // first get all available tubes
     foreach(QFileInfo file, files) {
         QString name = file.baseName();
-        int i = regExp.indexIn(name);
-        if (i != -1) {
+        if (regExp.indexIn(name) != -1) { // для файлов без папок
             int number = regExp.cap(1).toInt();
             addTube(number, regExp.cap(2), file.absoluteFilePath());
+        } else if (regExpDir.indexIn(name) != -1) { // для файлов в папках
+            int number = file.dir().dirName().toInt(&isInteger);
+            if (isInteger) {
+                addTube(number, regExpDir.cap(1), file.absoluteFilePath());
+            }
         }
     }    
     
@@ -67,7 +82,6 @@ void TubesData::loadFromDir(QString dirWithImages)
         
         /// set position if any
         if (tubePositionInfo.contains(tubes[i].number)) {
-//            qDebug() << 
             tubes[i].position = tubePositionInfo[tubes[i].number];
         }
         
@@ -291,7 +305,7 @@ QString tubeValuesString(QString tubeName, QString inOut, QString path, int posi
             + "914" + d // doc_isp
             + "-17" + d // doc_operator
             + "'" + inOut +"'" + d // doc_annot
-            + "@NumDataRoad" + d // doc_road
+            + "@NumRoad" + d // doc_road
             + "0" + d
             + "@NumDataSource" + ")";    
 }
