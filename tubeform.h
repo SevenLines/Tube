@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QLabel>
+#include <QButtonGroup>
 #include "tubesdata.h"
 #include "qlabelimage.h"
 
@@ -14,6 +15,7 @@ class TubeForm : public QWidget
 {
     Q_OBJECT
     TubesData::TubeEx tube;
+    QButtonGroup* grpPlace;
     bool fImagesOrder;
     
 public:

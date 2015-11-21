@@ -17,7 +17,6 @@ public:
     
     
     int NumDataSource();
-    int NumRoad();
     
     void saveIni(QSettings *ini);
     void loadIni(QSettings *ini);

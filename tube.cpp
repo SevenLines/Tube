@@ -4,6 +4,8 @@
 #include <QDebug>
 #include <math.h>
 
+using namespace std;
+
 /// /// /// /// /// /// /// /// /// /// /// /// /// ///
 /// PORTAL CLASS
 /// /// /// /// /// /// /// /// /// /// /// /// /// ///
@@ -170,6 +172,7 @@ Tube::Tube()
     fullLength = 0;
     moundHeight = 0;
     position = 0;
+    place = 262;
     
     condition = conditions()[2];
     obstacle = obstacles()[1];
@@ -179,62 +182,50 @@ Tube::Tube()
 }
 
 QString Tube::SQLInsertScript()
-{
-    QString d = ", ";
+{ 
+    QString holeSize = QString::number(in.size.diameter==0?in.size.width:in.size.diameter,'g', 1).replace(',','.');
+    QString comment = QString("'%1 %2'").arg(obstacle, waterCourse).trimmed();
+    QString cnd = condition=="отличное" ? "2322" :
+                  condition=="хорошее"  ? "2321" :
+                  condition=="удовл."   ? "2320" :
+                  condition=="плохое"   ? "2319" :
+                  condition=="аварийное"? "2323" : "-1";
     
-    QString scriptHead = "INSERT ListTubes("
-            "DataSource,"
-            "NumRoad,"
-            "NumTypeTubeCuttingShape,"
-            "NumTypeTubeWorkMode,"
-            "Displacement,"
-            "Extent,"
-            "NumPlace,"
-            "NumMaterial,"
-            "HoleSize,"
-//            "NumTypeStrengthening,"
-            "TubeScheme,"
-            "NumCondition,"
-            "NumDataSource,"
-            "PointsCount,"
-            "NumReason,"
-            "Comment) ";
+    std::vector<std::tuple<QString, QString>> insert_values;
+    insert_values.push_back(make_tuple("DataSource", "@NumDataSource"));
+    insert_values.push_back(make_tuple("NumRoad", "@NumRoad"));
+    insert_values.push_back(make_tuple("NumTypeTubeCuttingShape", in.typeCut=="круглое"?"159":"160"));
+    insert_values.push_back(make_tuple("NumTypeTubeWorkMode", schedule=="напорный"?"185":"187"));
+    insert_values.push_back(make_tuple("Displacement", QString::number(position)));
+    insert_values.push_back(make_tuple("Extent", QString::number(fullLength)));
+    insert_values.push_back(make_tuple("NumPlace", QString::number(place)));
+    insert_values.push_back(make_tuple("NumMaterial", in.materialBody=="железобетон"?"2293":"2292"));
+    insert_values.push_back(make_tuple("HoleSize", holeSize));
+    insert_values.push_back(make_tuple("TubeScheme", QString("'%1x%2'").arg(holeSize).arg(in.eyesCount)));
+    insert_values.push_back(make_tuple("NumCondition", cnd));
+    insert_values.push_back(make_tuple("NumDataSource", "@NumDataSource"));
+    insert_values.push_back(make_tuple("PointsCount", "0"));
+    insert_values.push_back(make_tuple("NumReason", "2385124"));
+    insert_values.push_back(make_tuple("Comment", comment));
     
-    QString holeSize = QString::number(
-                in.size.diameter==0?in.size.width:in.size.diameter,'g', 1).replace(',','.');
-    QString cnd = condition=="отличное"?"2322":
-                        condition=="хорошее"?"2321":
-                        condition=="удовл."?"2320":
-                        condition=="плохое"?"2319":
-                        condition=="аварийное"?"2323":"-1";
+    QString scriptHead = "INSERT ListTubes(";
+    QString scriptBottom = "VALUES (";
     
-    QString comment = "'" + obstacle + " " + waterCourse + "'";
+    bool first = true;
+    for(auto& item : insert_values) {
+        if (!first){
+            scriptHead += ", ";
+            scriptBottom += ", ";
+        } else {
+            first = false;
+        }
+        scriptHead += get<0>(item);
+        scriptBottom += get<1>(item);
+    }
+    scriptHead += ")\n";
+    scriptBottom += ")\n";
     
-    QString scriptBottom = "VALUES("
-            "@NumDataSource," // NumDataSource 
-            "@NumRoad" + d //NumRoad
-            + QString(in.typeCut=="круглое"?"159":"160") + d //NumTypeTubeCuttingShape 
-            + QString(schedule=="напорный"?"185":"187") + d // NumTypeTubeWorkMode
-            + QString::number(position) + d // Displacement
-            + QString::number(fullLength).replace(',','.') + d // Extent
-            + "262" + d // NumPlace -- на дороге
-            + QString::number(in.materialBody=="железобетон"?2293:2292) + d // NumMaterial
-            + holeSize + d // HoleSize
-//            + QString.number() // NumTypeStrengthening
-            + "'" + QString::number(in.eyesCount) + "x" + holeSize +"'" + d //TubeScheme
-            + cnd + d// NumCondition
-            + "@NumDataSource" + d // NumDataSource
-            + "0" + d // PointsCount
-            + "2385124" + d
-            + comment // Comment
-            + ")"; //NumReason
-    
-    // little check for script correctness
-    int headCommas = scriptHead.count(',');
-    int bottomCommas = scriptBottom.count(',');
-    Q_ASSERT(headCommas == bottomCommas);
-    
-    return scriptHead + "\n" + scriptBottom;
+    return scriptHead + scriptBottom;
 }
 
 void Tube::writeToXml(QXmlStreamWriter *xml)
@@ -244,6 +235,7 @@ void Tube::writeToXml(QXmlStreamWriter *xml)
     
     XmlUtils::writeBool(xml, "ready", ready);
     XmlUtils::writeInt(xml, "position", position);
+    XmlUtils::writeInt(xml, "place", place);
     xml->writeTextElement("condition", condition);
     xml->writeTextElement("obstacle", obstacle);
     xml->writeTextElement("waterCourse", waterCourse);
@@ -278,9 +270,7 @@ void Tube::writeToFile(QString path)
         wr.setAutoFormatting(true);
         
         wr.writeStartDocument();
-
         writeToXml(&wr);
-;
         wr.writeEndDocument();
         
         file.close();

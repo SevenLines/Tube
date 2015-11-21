@@ -7,14 +7,27 @@
     <x>0</x>
     <y>0</y>
     <width>655</width>
-    <height>373</height>
+    <height>539</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="2">
+   <item row="1" column="0" colspan="4">
+    <widget class="TextEdit" name="textEdit"/>
+   </item>
+   <item row="3" column="0" colspan="4">
+    <widget class="QTextEdit" name="txtReport"/>
+   </item>
+   <item row="0" column="3">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>сохранить...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
     <widget class="QPushButton" name="btnReport">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
@@ -27,10 +40,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="3">
-    <widget class="QTextEdit" name="txtReport"/>
-   </item>
-   <item row="0" column="0" colspan="2">
+   <item row="0" column="0" colspan="3">
     <widget class="QComboBox" name="cmbTemplate">
      <property name="editable">
       <bool>true</bool>
@@ -39,6 +49,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>textedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -52,8 +69,8 @@
      <y>27</y>
     </hint>
     <hint type="destinationlabel">
-     <x>584</x>
-     <y>25</y>
+     <x>103</x>
+     <y>298</y>
     </hint>
    </hints>
   </connection>

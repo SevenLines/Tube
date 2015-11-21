@@ -18,11 +18,17 @@ TubeForm::TubeForm(QWidget *parent) :
     connect(ui->btnSave, SIGNAL(clicked()),
             SLOT(save()));
     
-
     QWidgetHelper::fillComboBox(ui->cmbCondition, Tube::conditions());
     QWidgetHelper::fillComboBox(ui->cmbObstacle, Tube::obstacles());
     QWidgetHelper::fillComboBox(ui->cmbSchedule, Tube::schedules());
     QWidgetHelper::fillComboBox(ui->cmbWatercourse, Tube::waterCourses());
+    
+    grpPlace = new QButtonGroup(this);
+    
+    grpPlace->addButton(ui->radioLeft, 257);
+    grpPlace->addButton(ui->radioCross, 262);
+    grpPlace->addButton(ui->radioRight, 258);
+    
     setImagesOrder();
 }
 
@@ -41,14 +47,20 @@ void TubeForm::setTube(TubesData::TubeEx &tube)
     
     // load tube card
     Tube t = Tube::readFromFile(tube.xmlPath);
-    if (t.fullLength == 0 && tube.length > 0) {
+    if (tube.length > 0) {
         t.fullLength = tube.length;
     }
     
-    if (t.position <= 0 && tube.position > 0) {
+    if (tube.position > 0) {
 //        qDebug() << tube.position;
         t.position = tube.position;
     }
+    
+    if (tube.place > 0) {
+        qDebug() << tube.place;
+        t.place = tube.place;
+    }
+    
     // synchronize form with loaded tube
     synchronizeWithTube(t);
     
@@ -110,8 +122,8 @@ Tube TubeForm::getTube()
     tube.moundHeight = ui->spnMoundHeight->value();
     tube.skew = ui->spnSkew->value();
     
-    tube.position = ui->spnPositionKm->value()*1000 
-            + ui->spnPositionM->value();
+    tube.position = ui->spnPositionKm->value()*1000 + ui->spnPositionM->value();
+    tube.place = grpPlace->checkedId();
     
     tube.in = ui->wdgPortalIn->portal();
     if (ui->grpPortalOut->isChecked()) {
@@ -164,6 +176,17 @@ void TubeForm::synchronizeWithTube(Tube t)
     QWidgetHelper::setEditText(ui->cmbObstacle, t.obstacle);
     QWidgetHelper::setEditText(ui->cmbSchedule, t.schedule);
     QWidgetHelper::setEditText(ui->cmbWatercourse, t.waterCourse);
+    
+    switch(t.place) {
+    case 257:
+        ui->radioLeft->setChecked(true);
+        break;
+    case 258:
+        ui->radioRight->setChecked(true);
+        break;
+    default:
+        ui->radioCross->setChecked(true);
+    }
     
     ui->spnLength->setValue(t.fullLength);
     ui->spnMoundHeight->setValue(t.moundHeight);

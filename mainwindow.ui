@@ -115,7 +115,7 @@
      <x>0</x>
      <y>0</y>
      <width>403</width>
-     <height>26</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -139,6 +139,7 @@
     </property>
     <addaction name="actionGenerateSaveScript"/>
     <addaction name="actionReport"/>
+    <addaction name="actionLoadExternal"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -190,6 +191,14 @@
   <action name="actionReport">
    <property name="text">
     <string>Отчет</string>
+   </property>
+  </action>
+  <action name="actionLoadExternal">
+   <property name="text">
+    <string>Обновить из внешних файлов</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Можно загрузить данные из файлов:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;position.txt&lt;/span&gt; -- пикетаж трубы&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;length.txt&lt;/span&gt; -- длина трубы&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;place.txt&lt;/span&gt; -- расположение относительно дороги&lt;/p&gt;&lt;p&gt;Файлы после загрузки будут переименованы в &lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;_position.txt&lt;/span&gt;, &lt;span style=&quot; font-weight:600;&quot;&gt;_length.txt&lt;/span&gt;, &lt;span style=&quot; font-weight:600;&quot;&gt;_place.txt&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </action>
  </widget>

@@ -24,6 +24,7 @@ public:
 public slots:
     QString report();
     void showAutoComplete();
+    void loadTemplates();
     
 private:
     Ui::DialogReport *ui;

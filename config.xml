@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>Tube</Name>
+    <Version>1.0.0</Version>
+    <Title>Tube Installer</Title>
+    <Publisher>Mick co</Publisher>
+    <StartMenuDir>Tube</StartMenuDir>
+    <TargetDir>@HomeDir@/InstallationDirectory</TargetDir>
+</Installer>

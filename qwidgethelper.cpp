@@ -1,10 +1,9 @@
 #include "qwidgethelper.h"
 
-
-void QWidgetHelper::setEditText(QComboBox *comboBox, QString text, bool addIfNotExists)
+void QWidgetHelper::setEditText(QComboBox* comboBox, QString text, bool addIfNotExists)
 {
     int index = comboBox->findText(text);
-    if (index!=-1) {
+    if (index != -1) {
         comboBox->setCurrentIndex(index);
     } else {
         if (addIfNotExists) {
@@ -13,9 +12,10 @@ void QWidgetHelper::setEditText(QComboBox *comboBox, QString text, bool addIfNot
     }
 }
 
-void QWidgetHelper::fillComboBox(QComboBox *comboBox, QStringList items)
+void QWidgetHelper::fillComboBox(QComboBox* comboBox, QStringList items)
 {
-    foreach(QString str, items) {
+    foreach(QString str, items)
+    {
         comboBox->addItem(str);
     }
 }

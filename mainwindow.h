@@ -10,40 +10,35 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
     QString lastDir;
     DatabaseRoadInfoDialog databaseRoadInfoDialog;
-    
+
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget* parent = 0);
     ~MainWindow();
-    
-    
+
 public slots:
     void openDir(QString dirPath);
     void openDir();
     void selectTube(QModelIndex index);
     void generateSaveScript();
     void report();
-    
+
     void saveIni();
     void loadIni();
     void useHelper(bool use);
-    
+
 private slots:
     void on_action_OpenDir_triggered();
     void on_action_exit_triggered();
     void updateTube(TubesData::TubeEx& tube);
-    
-    
+
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
     TubesModel tubesModel;
     DialogReport dialogReport;
-    
-    
 };
 
 #endif // MAINWINDOW_H

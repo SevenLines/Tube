@@ -85,9 +85,7 @@ void MainWindow::generateSaveScript()
         return;
     }
     
-    GenerateScriptOptions options(path,
-                                  databaseRoadInfoDialog.NumDataSource(),
-                                  databaseRoadInfoDialog.NumRoad() );
+    GenerateScriptOptions options(path, databaseRoadInfoDialog.NumDataSource());
     tubesModel.generateSaveScript(options);
     
     if (QMessageBox::question(this, "Потдверждение", "Открыть сгенерированный файл?") != QMessageBox::Yes) {

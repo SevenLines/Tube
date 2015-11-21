@@ -11,13 +11,11 @@ struct GenerateScriptOptions
 {
     QString filePath;
     int NumDataSource;
-    int NumRoad;
     bool excludeZeroPosition;
     
-    GenerateScriptOptions(QString filePath, int NumDataSource, int NumRoad) {
+    GenerateScriptOptions(QString filePath, int NumDataSource) {
         this->filePath = filePath;
         this->NumDataSource = NumDataSource;
-        this->NumRoad = NumRoad;
     }
 };
 
@@ -31,6 +29,7 @@ public:
         int number; // номер трубы
         int length; // длина трубы в метрах
         int position;
+        int place;
         bool ready;
         
         QString xmlPath;
@@ -39,9 +38,9 @@ public:
         /// изображения выходного отверстия
         QList<QString> imagesListOut;
         
-        TubeEx() : length(-1), number(-1), position(-1), ready(false) {}
+        TubeEx() : length(-1), number(-1), position(-1), ready(false), place(-1) {}
         
-        QString bindImagesScript(int NumRoad, int NumDataSource);
+        QString bindImagesScript();
     };
     
 public:
@@ -49,7 +48,8 @@ public:
     TubesData(QString dirWithImages);
     
     void loadFromDir(QString dirWithImages);
-    QMap<int, int> getPositionInfo(QString dirWithImages);
+    QMap<int, int> getPositionInfo(QString dirWithImages); // пикетаж по дороге
+    QMap<int, int> getPlaceInfo(QString dirWithImages); // расположение относительно дороги
     QMap<int, qreal> getLengthInfo(QString dirWithImages);
     
     QList<TubeEx> tubes;
@@ -67,6 +67,7 @@ public:
  
     
     void generateSaveScript(GenerateScriptOptions &options);
+    void updateFromExternalFiles();
 private:
     QString xmlFolderName;
     QString imageNameTemplate;

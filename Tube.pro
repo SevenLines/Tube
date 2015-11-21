@@ -24,6 +24,8 @@ win32 {
         assets/windows_resource.rc
 }
 
+INCLUDEPATH += tools \
+
 SOURCES += main.cpp\
         mainwindow.cpp \
     tube.cpp \
@@ -39,7 +41,8 @@ SOURCES += main.cpp\
     qwidgethelper.cpp \
     qlabelimagezoom.cpp \
     databaseroadinfodialog.cpp \
-    dialogreport.cpp
+    dialogreport.cpp \
+    tools/textedit.cpp \
 
 HEADERS  += mainwindow.h \
     Enums.h \
@@ -56,7 +59,8 @@ HEADERS  += mainwindow.h \
     qwidgethelper.h \
     qlabelimagezoom.h \
     databaseroadinfodialog.h \
-    dialogreport.h
+    dialogreport.h \
+    tools/textedit.h \
 
 FORMS    += mainwindow.ui \
     tubeform.ui \
@@ -66,4 +70,7 @@ FORMS    += mainwindow.ui \
 
 RESOURCES += \
     main.qrc
+
+DISTFILES += \
+    config.xml
 
