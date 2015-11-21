@@ -169,8 +169,9 @@ void TubeForm::setDeffects(QStringList &deffectsList)
 
 void TubeForm::synchronizeWithTube(Tube t)
 {
-    ui->lblTubeNumber->setText(QString("%1")
-                               .arg( tube.number, 3, 10, QLatin1Char('0')));
+    ui->lblTubeNumber->setText(
+        QString("%1").arg(tube.number, 3, 10, QLatin1Char('0'))
+    );
     
     QWidgetHelper::setEditText(ui->cmbCondition, t.condition);
     QWidgetHelper::setEditText(ui->cmbObstacle, t.obstacle);
@@ -236,7 +237,6 @@ void TubeForm::setOutImage()
     QAction *action = dynamic_cast<QAction*>(sender());
     if (!action)
         return;
-
     
     // uncheck all actions    
     foreach(QAction *a, ui->lblImageOut->actions()) {
@@ -246,7 +246,6 @@ void TubeForm::setOutImage()
     // check sender action
     action->setChecked(true);
     action->setEnabled(false);
-
     
     // load image
     setOutImage(action->data().toString());   
@@ -261,7 +260,6 @@ void TubeForm::setImagesOrder(bool asc)
 {
     fImagesOrder = asc;
 }
-
 
 void TubeForm::save()
 {

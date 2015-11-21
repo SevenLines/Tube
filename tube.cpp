@@ -294,6 +294,7 @@ Tube Tube::readFromXml(QDomNode tubeNode)
     tube.fullLength = XmlUtils::readFirstReal(&tubeNode, "fullLength");
     tube.moundHeight = XmlUtils::readFirstReal(&tubeNode, "moundHeight");
     tube.skew = XmlUtils::readFirstReal(&tubeNode, "skew");
+    tube.place = XmlUtils::readFirstReal(&tubeNode, "place");
     
     tube.position = XmlUtils::readFirstInt(&tubeNode, "position");
     

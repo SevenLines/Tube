@@ -71,10 +71,13 @@ void MainWindow::selectTube(QModelIndex index)
 
 void MainWindow::generateSaveScript()
 {
-    QString path = QFileDialog::getSaveFileName(this, 
-                                 "Select script path", 
-                                 lastDir, 
-                                 "SQL script file (*.sql)");
+    QString path = QFileDialog::getSaveFileName(
+        this, 
+        "Select script path", 
+        lastDir, 
+        "SQL script file (*.sql)"
+    );
+    
     if (path.isNull()) {
         return;
     }
@@ -88,11 +91,9 @@ void MainWindow::generateSaveScript()
     GenerateScriptOptions options(path, databaseRoadInfoDialog.NumDataSource());
     tubesModel.generateSaveScript(options);
     
-    if (QMessageBox::question(this, "Потдверждение", "Открыть сгенерированный файл?") != QMessageBox::Yes) {
-        return;
+    if (QMessageBox::question(this, "Потдверждение", "Открыть сгенерированный файл?") == QMessageBox::Yes) {
+        QDesktopServices::openUrl(QUrl::fromLocalFile(QString("file:///%1").arg(path)));
     }
-
-    QDesktopServices::openUrl("file:///"+path);
 }
 
 void MainWindow::saveIni()

@@ -22,7 +22,6 @@ QLabelImage::QLabelImage(QWidget *parent) :
     loadingMovie->setParent(this);
    
     mFitImage = true;
-
 }
 
 QPixmap QLabelImage::pixmap()

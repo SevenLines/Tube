@@ -69,10 +69,8 @@ void TubesModel::loadFromDir(QString imageDirPath)
     }
     
     tubesDataLoader.setDirWithImages(imageDirPath);
-    connect(&tubesDataLoader, SIGNAL(finished()),
-            SLOT(resetModel()));
-    connect(&tubesDataLoader, SIGNAL(finished()),
-            SIGNAL(afterLoad()));
+    connect(&tubesDataLoader, SIGNAL(finished()),SLOT(resetModel()));
+    connect(&tubesDataLoader, SIGNAL(finished()),SIGNAL(afterLoad()));
     tubesDataLoader.loadTubesInfo();
 }
 

@@ -23,7 +23,6 @@ void QLoadImageThread::setDeleteOnCompleted(bool fDelete)
     fDeleteOnComplete = fDelete;
 }
 
-
 void QLoadImageThread::run()
 {
     mPixmap = QPixmap();
